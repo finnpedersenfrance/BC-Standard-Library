@@ -1,0 +1,29 @@
+{
+  "id": "b8645f5d-7b63-48aa-97e0-9952e40de39b",
+  "name": "Standard Library",
+  "publisher": "Finn Pedersen France",
+  "version": "1.0.0.0",
+  "brief": "BC Standard Library",
+  "description": "The BC Standard Library is a collection of the most used functions.",
+  "privacyStatement": "https://finnpedersenkazes.github.io/",
+  "EULA": "https://finnpedersenkazes.github.io/",
+  "help": "https://finnpedersenkazes.github.io/",
+  "url": "https://finnpedersenkazes.github.io/",
+  "logo": "Logo.png",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "21.0.0.0",
+  "applicationInsightsConnectionString": "XYZ",
+  "features": [
+    "TranslationFile"
+  ],
+  "idRanges": [
+    {
+      "from": 50130,
+      "to": 50135
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://finnpedersenkazes.github.io/",
+  "runtime": "10.0"
+}
