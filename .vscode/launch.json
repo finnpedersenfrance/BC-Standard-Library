@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "al",
             "environmentType": "OnPrem",
-            "server": "https://winserv2019bc.northeurope.cloudapp.azure.com",
+            "server": "https://devenvbc.westeurope.cloudapp.azure.com",
             "serverInstance": "BC",
             "authentication": "UserPassword",
             "startupObjectId": 130451,
