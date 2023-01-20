@@ -1,9 +1,11 @@
-Codeunit 50131 "FPFr Test Add Comment"
+codeunit 50131 "FPFr Test Add Comment"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit FPFrStandardLibrary;
+        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
+        Assert: Codeunit "Library Assert";
+
 
     trigger OnRun()
     begin
@@ -20,15 +22,14 @@ Codeunit 50131 "FPFr Test Add Comment"
     var
         Comments: Text;
     begin
-        // [SCENARIO #0001] Testing the starting scenario with an empty string.
+        // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
         // [WHEN] Adding an empty string
         // [THEN] The resulting string is empty.
 
         Comments := '';
         AddComment(Comments, '');
-        if not (Comments = '') then
-            Error('Expected: Adding an empty string to an empty string should result in an empty string. Got: "%1"', Comments);
+        Assert.AreEqual('', Comments, 'Adding an empty string to an empty string should result in an empty string.');
     end;
 
     [Test]
@@ -37,7 +38,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment: Text;
         OriginalComment: Text;
     begin
-        // [SCENARIO #0002] Testing adding an empty string to an existing string.
+        // [SCENARIO #002] Testing adding an empty string to an existing string.
         // [GIVEN] An initial string
         // [WHEN] Adding an empty string
         // [THEN] The resulting string is the unchanged original string.
@@ -45,8 +46,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment := 'OK';
         OriginalComment := Comment;
         AddComment(Comment, '');
-        if not (Comment = OriginalComment) then
-            Error('Expected: Adding an empty string to a non empty string should result in the original string. Got: "%1"', Comment);
+        Assert.AreEqual(OriginalComment, Comment, 'Adding an empty string to a non empty string should result in the original string.');
     end;
 
     [Test]
@@ -54,15 +54,14 @@ Codeunit 50131 "FPFr Test Add Comment"
     var
         Comment: Text;
     begin
-        // [SCENARIO #0003] Testing the starting scenario adding the first comment.
+        // [SCENARIO #003] Testing the starting scenario adding the first comment.
         // [GIVEN] An empty string
         // [WHEN] Adding a first comment
         // [THEN] The resulting string is the first comment.
 
         Comment := '';
         AddComment(Comment, 'OK');
-        if not (Comment = 'OK') then
-            Error('Expected: Adding a non empty string to an empty string should result in the added string. "%1"', Comment);
+        Assert.AreEqual('OK', Comment, 'Adding a non empty string to an empty string should result in the added string.')
     end;
 
     [Test]
@@ -71,7 +70,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment: Text;
         OriginalComment: Text;
     begin
-        // [SCENARIO #0004] Testing adding a comment already present
+        // [SCENARIO #004] Testing adding a comment already present
         // [GIVEN] An orignal comment
         // [WHEN] Adding a comment already present
         // [THEN] The resulting string is the unchangde orignal string.
@@ -79,8 +78,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment := 'OK';
         OriginalComment := Comment;
         AddComment(Comment, 'OK');
-        if not (Comment = OriginalComment) then
-            Error('Expected: Adding the identical comment again should not change the string. "%1"', Comment);
+        Assert.AreEqual(OriginalComment, Comment, 'Adding the identical comment again should not change the string.')
     end;
 
     [Test]
@@ -89,7 +87,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment: Text;
         OriginalComment: Text;
     begin
-        // [SCENARIO #0005] Testing adding a comment already present
+        // [SCENARIO #005] Testing adding a comment already present
         // [GIVEN] An orignal list of comments
         // [WHEN] Adding a comment already present
         // [THEN] The resulting string is the unchangde orignal string.
@@ -97,8 +95,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         Comment := 'OK1;OK2;OK3;OK4';
         OriginalComment := Comment;
         AddComment(Comment, 'OK3');
-        if not (Comment = OriginalComment) then
-            Error('Expected: Adding the same comment again should not change the string. "%1"', Comment);
+        Assert.AreEqual(OriginalComment, Comment, 'Adding the same comment again should not change the string.')
     end;
 
     [Test]
@@ -108,7 +105,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         OriginalComment: Text;
         ExpectedComment: Text;
     begin
-        // [SCENARIO #0006] Adding a new comment to a list of comments 
+        // [SCENARIO #006] Adding a new comment to a list of comments 
         // [GIVEN] An orignal list of comments
         // [WHEN] Adding a new comment
         // [THEN] The resulting string is the orignal string with the new comment added
@@ -117,9 +114,7 @@ Codeunit 50131 "FPFr Test Add Comment"
         OriginalComment := Comment;
         ExpectedComment := OriginalComment + ';OK5';
         AddComment(Comment, 'OK5');
-        if not (Comment = ExpectedComment) then
-            Error('Expected: Adding a new unique comment should change the string. Got "%1". Expected: "%2"', Comment, ExpectedComment);
+        Assert.AreEqual(ExpectedComment, Comment, 'Adding a new unique comment should change the string.')
     end;
-
 
 }
