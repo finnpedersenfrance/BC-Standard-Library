@@ -155,7 +155,7 @@ Codeunit 50130 "FPFr Standard Library"
             Position := 1;
             MatchedString := String;
             TotalPattern := RegexStartLine(RegexEndLine(Pattern));
-            while (not RegexIsMatch(MatchedString, TotalPattern)) or not IsEmptyString(MatchedString) do
+            while (not RegexIsMatch(MatchedString, TotalPattern)) do
                 MatchedString := CopyStr(MatchedString, 1, StrLen(MatchedString) - 1);
         end else begin
             if StrLen(String) = 1 then

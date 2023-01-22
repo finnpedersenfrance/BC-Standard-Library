@@ -324,10 +324,16 @@ codeunit 50138 "FPFr Test Regex Functions"
     [Test]
     procedure TestPatternPosition()
     var
-        TotalPattern: Text;
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
     begin
-        // PatternPosition(String: Text; Pattern: Text; var Position: Integer; var MatchedString: Text)
-        Error('TestPatternPosition to be implemented.');
+        String := '2002-05-30T09:30:10+06:00';
+        Pattern := 'T\d{2}:\d{2}:\d{2}';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(11, Position, '');
+        Assert.AreEqual('T09:30:10', MatchedString, '');
     end;
 
 }
