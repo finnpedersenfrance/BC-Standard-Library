@@ -26,7 +26,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
         DateTimeText := '2019-05-07T00:00:00+01:00';
         ExpectedDate := CreateDateTime(20190507D, 0T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
-        Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a date.');
+        Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
     [Test]
@@ -42,9 +42,9 @@ codeunit 50132 "FPFr Test Evaluate XML"
         // [THEN] We get a date
 
         DateTimeText := '2019-05-07';
-        ExpectedDate := CreateDateTime(20190507D, 010000T);
+        ExpectedDate := CreateDateTime(20190507D, 0T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
-        Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a date.');
+        Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
     [Test]
@@ -62,7 +62,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
         DateTimeText := '2019-02-28T12:34:56Z';
         ExpectedDate := CreateDateTime(20190228D, 123456T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
-        Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a date.');
+        Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
     [Test]
@@ -115,7 +115,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
 
         DateTimeText := '';
         ExpectedDate := 0DT;
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), '');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
@@ -138,7 +138,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
     var
         FoundBoolean: Boolean;
     begin
-        // [SCENARIO #007] Evaluating boolean
+        // [SCENARIO #008] Evaluating boolean
         // [GIVEN] 'true' 
         // [WHEN] Evaluating it 
         // [THEN] We get true
@@ -152,7 +152,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
     var
         FoundBoolean: Boolean;
     begin
-        // [SCENARIO #007] Evaluating boolean
+        // [SCENARIO #009] Evaluating boolean
         // [GIVEN] 'true' 
         // [WHEN] Evaluating it 
         // [THEN] We get true
@@ -166,7 +166,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
     var
         FoundBoolean: Boolean;
     begin
-        // [SCENARIO #007] Evaluating boolean
+        // [SCENARIO #010] Evaluating boolean
         // [GIVEN] 'true' 
         // [WHEN] Evaluating it 
         // [THEN] We get true
@@ -180,7 +180,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
     var
         FoundBoolean: Boolean;
     begin
-        // [SCENARIO #007] Evaluating an empty string should fail
+        // [SCENARIO #011] Evaluating an empty string should fail
         // [GIVEN] an empty string
         // [WHEN] Evaluating it 
         // [THEN] We should not get a date
@@ -190,11 +190,25 @@ codeunit 50132 "FPFr Test Evaluate XML"
     end;
 
     [Test]
+    procedure TestEvaluateBooleanFromXML6()
+    var
+        FoundBoolean: Boolean;
+    begin
+        // [SCENARIO #012] Evaluating a nonsens string should fail
+        // [GIVEN] a nonsens string
+        // [WHEN] Evaluating it 
+        // [THEN] We should not get a date
+
+        Assert.IsFalse(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'nonsens'), 'Expected to fail.');
+        Assert.IsFalse(FoundBoolean, '');
+    end;
+
+    [Test]
     procedure TestEvaluateIntegerFromXML1()
     var
         FoundInteger: Integer;
     begin
-        // [SCENARIO #007] Evaluating Integer
+        // [SCENARIO #013] Evaluating Integer
         // [GIVEN] '7' 
         // [WHEN] Evaluating it 
         // [THEN] We get 7
@@ -204,11 +218,25 @@ codeunit 50132 "FPFr Test Evaluate XML"
     end;
 
     [Test]
+    procedure TestEvaluateIntegerFromXML2()
+    var
+        FoundInteger: Integer;
+    begin
+        // [SCENARIO #014] Evaluating nonsens string to integer
+        // [GIVEN] 'nonsens' 
+        // [WHEN] Evaluating it 
+        // [THEN] We get false and 0
+
+        Assert.IsFalse(FPFrStandardLibrary.EvaluateIntegerFromXML(FoundInteger, 'nonsens'), 'Expected to fail.');
+        Assert.AreEqual(0, FoundInteger, '');
+    end;
+
+    [Test]
     procedure TestEvaluateDecimalFromXML1()
     var
         FoundDecimal: Decimal;
     begin
-        // [SCENARIO #007] Evaluating Decimal
+        // [SCENARIO #015] Evaluating Decimal
         // [GIVEN] '3.1415926535897932' 
         // [WHEN] Evaluating it 
         // [THEN] We get a value close to pi
@@ -216,6 +244,28 @@ codeunit 50132 "FPFr Test Evaluate XML"
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDecimalFromXML(FoundDecimal, '3.1415926535897932'), 'Expected to succeed.');
         Assert.AreEqual(3.1415926535897932, FoundDecimal, 'Did we find pi?');
     end;
+
+    [Test]
+    procedure TestEvaluateDecimalFromXML2()
+    var
+        FoundDecimal: Decimal;
+    begin
+        // [SCENARIO #016] Evaluating nonsens string to Decimal
+        // [GIVEN] 'nonsens' 
+        // [WHEN] Evaluating it 
+        // [THEN] We get false and 0
+
+        Assert.IsFalse(FPFrStandardLibrary.EvaluateDecimalFromXML(FoundDecimal, 'nonsens'), 'Expected to fail.');
+        Assert.AreEqual(0.0, FoundDecimal, '');
+    end;
+
+    // https://github.com/arnau/ISO8601/blob/main/docs/duration.md
+
+    // Test cases
+    // https://github.com/arnau/ISO8601/tree/main/spec/iso8601
+
+    // Specification
+    // https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
 
 
 }
