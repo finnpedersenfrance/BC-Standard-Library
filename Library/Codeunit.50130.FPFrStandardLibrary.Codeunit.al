@@ -145,7 +145,6 @@ Codeunit 50130 "FPFr Standard Library"
     begin
         Position := 0;
         MatchedString := '';
-
         if String = '' then
             exit;
         if Pattern = '' then
@@ -158,122 +157,67 @@ Codeunit 50130 "FPFr Standard Library"
             while (not RegexIsMatch(MatchedString, TotalPattern)) do
                 MatchedString := CopyStr(MatchedString, 1, StrLen(MatchedString) - 1);
         end else begin
-            if StrLen(String) = 1 then
-                String := ''
-            else
-                String := CopyStr(String, 2);
+            String := CopyStr(String, 2);
             PatternPosition(String, Pattern, Position, MatchedString);
             if Position > 0 then
                 Position += 1;
         end;
     end;
 
-    procedure EvaluateDateTimeFromXMLWithTimeZone(var FoundDateTime: DateTime; var FoundTimeZone: Time; Iso8601: Text): Boolean
-    var
-        myInt: Integer;
-    begin
-
-    end;
-
     procedure EvaluateDateTimeFromXML(var FoundDateTime: DateTime; Iso8601: Text): Boolean
     begin
-        exit(Evaluate(FoundDateTime, Iso8601));
+        exit(Evaluate(FoundDateTime, Iso8601, 9));
     end;
 
-    procedure EvaluateDateTimeFromXML2(var FoundDateTime: DateTime; Iso8601: Text): Boolean
+    procedure EvaluateDateTimeZoneFromXML(var FoundDate: Date; var FoundTime: Time; var FoundUtc: Boolean; var FoundNegativeTimeZone: Boolean; var FoundZone: Time; Iso8601: Text) Found: Boolean
     var
-        DefaultDate: Text;
-        DefaultTime: Text;
-        DefaultTimeZone: Text;
-        DatePattern: Text;
-        TimePattern: Text;
-        TimeZonePattern: Text;
-        FractionsPattern: Text;
-        UtcPattern: Text;
-        FoundDate: Date;
-        FoundTime: Time;
-        PositionZ: Integer;
-        PositionT: Integer;
+        Pattern: Text;
+        String: Text;
+        Position: Integer;
+        MatchedString: Text;
     begin
-        DefaultDate := '1753-01-01';
-        DefaultTime := 'T00:00:00.000';
-        DefaultTimeZone := '+00:00';
-        FoundDateTime := 0DT;
-        // FoundTimeZone := 0T;
+        FoundDate := 0D;
+        FoundTime := 0T;
+        FoundZone := 0T;
+        FoundUtc := false;
 
-        DatePattern := '^(\d{4})-(\d{2})-(\d{2})$';
-        TimePattern := '^T(\d{2}):(\d{2}):(\d{2})$';
-        TimeZonePattern := '^(-|+)(\d{2}):(\d{2})$';
-        FractionsPattern := '^(\.\d*)$';
-        UtcPattern := 'Z$'; // Z has to be the last character.
+        Pattern := '(\d{4})-(\d{2})-(\d{2})'; // Date
+        String := Iso8601;
+        PatternPosition(String, Pattern, Position, MatchedString);
+        if Position = 1 then begin
+            Evaluate(FoundDate, MatchedString, 9);
+            String := CopyStr(String, StrLen(MatchedString) + 1);
+        end;
 
-        PositionT := StrPos(Iso8601, 'T');
-        PositionZ := StrPos(Iso8601, 'Z');
+        Pattern := 'T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)'; // Time
+        PatternPosition(String, Pattern, Position, MatchedString);
+        if Position = 1 then begin
+            Evaluate(FoundTime, CopyStr(MatchedString, 2), 9);
+            String := CopyStr(String, StrLen(MatchedString) + 1)
+        end;
 
-        if StrLen(Iso8601) >= 10 then
-            if not RegexIsMatch(CopyStr(Iso8601, 1, 10), DatePattern) then
-                exit(false);
+        Pattern := 'Z'; // UTC
+        PatternPosition(String, Pattern, Position, MatchedString);
+        if Position = 1 then begin
+            FoundUtc := true;
+        end;
 
+        if Position = 0 then begin
+            Pattern := '-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})'; // Time Zone
+            PatternPosition(String, Pattern, Position, MatchedString);
+            if Position = 1 then begin
+                FoundNegativeTimeZone := CopyStr(MatchedString, 1, 1) = '-';
+                Evaluate(FoundZone, CopyStr(MatchedString, 2) + ':00', 9);
+            end;
+        end;
 
-
-        // 2002-05-30T09:30:10Z
-        // 2002-05-30T09:30:10.000-06:00
-        // 1234567890123456789012345
-
-
-        // case CopyStr(Iso8601, 11, 1) of
-        //     'Z':
-        //         if
-        // end;
-
-        //     if Evaluate(FoundDateTime, Iso8601, 9) then
-        //         exit(FoundDateTime > 0DT);
-
-        //     FoundDateTime := 0DT;
-        // exit(false);
-
-        // if StrLen(Iso8601) =
-
-        // 2002-05-30T09:30:10Z
-        // 2002-05-30T09:30:10-06:00
-        // 1234567890123456789012345
-        //          1         2    2
-
-        // Time ranging from 00:00:00.000 to 23:59:59.999. An undefined or blank time is specified by 0T.
-        // Date and time ranging from January 1, 1753, 00:00:00.000 to December 31, 9999, 23:59:59.999. An undefined or blank DateTime is specified by 0DT.
-        // Date ranging from January 1, 1753 to December 31, 9999.
-
-
-        // IF STRLEN(FieldValue) > 16 THEN
-        //   FieldValue := COPYSTR(FieldValue,1,16) + ':00';
-        // ResultOK := EVALUATE(DateTime,FieldValue,9);
-        // IF ResultOK THEN BEGIN
-        //   // We ignore TimeZones endings like Z and +01:00 in the DateTime
-        //   DateOK := EVALUATE(Date,COPYSTR(FieldValue,1,10),9);
-        //   IF STRLEN(FieldValue) = 19 THEN BEGIN
-        //     TimeOK := EVALUATE(TimePart,COPYSTR(FieldValue,12,8),9);
-        //   END ELSE BEGIN
-        //     TimePart := 0T;
-        //     TimeOK := TRUE;
-        //   END;
-        //   ResultOK := DateOK AND TimeOK;
-        //   IF ResultOK THEN
-        //     DateTime := CREATEDATETIME(Date,TimePart);
-        // END;
-        // IF NOT ResultOK THEN
-        //   ResultOK := EVALUATE(DateTime,FieldValue);
-        // IF ResultOK THEN
-        //   FieldValue := FORMAT(DateTime,0,DateTimeFormatString);
-        // IF ResultOK AND (COPYSTR(FieldValue,1,10) = '9999-12-31') THEN
-        //   FieldValue := '';
-
-
-
+        Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
+        Found := RegexIsMatch(Iso8601, Pattern);
     end;
 
     procedure EvaluateBooleanFromXML(var FoundBoolean: Boolean;
-            BooleanXML:
-                Text):
+             BooleanXML:
+                 Text):
             Boolean
     begin
         if Evaluate(FoundBoolean, BooleanXML, 9) then

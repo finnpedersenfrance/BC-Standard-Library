@@ -100,6 +100,20 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
+    procedure TestRegexDisjunction2Empty()
+    begin
+        // [SCENARIO #001] Disjunction between two strings is marked by a pipe between the two.
+        // [GIVEN] Given one or two empty strings
+        // [WHEN] creating a disjunction between the two
+        // [THEN] it returns the non empty string or in case they both are empty an empty string
+
+        Assert.AreEqual('x', FPFrStandardLibrary.RegexDisjunction2('x', ''), '');
+        Assert.AreEqual('y', FPFrStandardLibrary.RegexDisjunction2('', 'y'), '');
+        Assert.AreEqual('', FPFrStandardLibrary.RegexDisjunction2('', ''), '');
+    end;
+
+
+    [Test]
     procedure TestRegexDisjunction3()
     begin
         // [SCENARIO #001] Disjunction between three strings is marked by a pipe between the three.
@@ -108,6 +122,23 @@ codeunit 50138 "FPFr Test Regex Functions"
         // [THEN] it returns a string with a pipe between the three
 
         Assert.AreEqual('x|y|z', FPFrStandardLibrary.RegexDisjunction3('x', 'y', 'z'), '');
+    end;
+
+    [Test]
+    procedure TestRegexDisjunction3Empty()
+    begin
+        // [SCENARIO #001] Disjunction between three strings is marked by a pipe between the three.
+        // [GIVEN] Given one, two or three empty strings
+        // [WHEN] creating a disjunction between the three
+        // [THEN] it ignores the empty strings
+
+        Assert.AreEqual('x|y', FPFrStandardLibrary.RegexDisjunction3('x', 'y', ''), '');
+        Assert.AreEqual('x|z', FPFrStandardLibrary.RegexDisjunction3('x', '', 'z'), '');
+        Assert.AreEqual('y|z', FPFrStandardLibrary.RegexDisjunction3('', 'y', 'z'), '');
+        Assert.AreEqual('x', FPFrStandardLibrary.RegexDisjunction3('x', '', ''), '');
+        Assert.AreEqual('y', FPFrStandardLibrary.RegexDisjunction3('', 'y', ''), '');
+        Assert.AreEqual('z', FPFrStandardLibrary.RegexDisjunction3('', '', 'z'), '');
+        Assert.AreEqual('', FPFrStandardLibrary.RegexDisjunction3('', '', ''), '');
     end;
 
     [Test]
@@ -254,6 +285,17 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
+    procedure TestRegexStartLineAlready()
+    begin
+        // [SCENARIO #001] The annchor caret is used for finding patterns in the start of the line
+        // [GIVEN] Given a non empty pattern matching the beginning of a line
+        // [WHEN] creating the pattern
+        // [THEN] it returns the same string
+
+        Assert.AreEqual('^xxx', FPFrStandardLibrary.RegexStartLine('^xxx'), '');
+    end;
+
+    [Test]
     procedure TestRegexEndLineEmpty()
     begin
         // [SCENARIO #001] The dollar is used for finding patterns in the end of the line
@@ -290,13 +332,11 @@ codeunit 50138 "FPFr Test Regex Functions"
         // https://www.regextester.com/112232
         // https://www.w3schools.com/xml/schema_dtypes_date.asp
 
-        Pattern := '^(\d{4})-(\d{2})-(\d{2})((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
+        Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24', Pattern), 'Simple Date');
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24Z', Pattern), 'Date with UTC TimeZone');
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24-06:00', Pattern), 'Date with negative TimeZone');
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24+06:00', Pattern), 'Date with positive TimeZone');
-
-        Pattern := '^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:00:00', Pattern), 'Simple DateTime');
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10.5', Pattern), 'DateTime with second fractions 1');
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10.56', Pattern), 'DateTime with second fractions 2');
@@ -342,7 +382,7 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
-    procedure TestPatternPositionTimeZone()
+    procedure TestPatternPositionTimeZonePlus()
     var
         String: Text;
         Pattern: Text;
@@ -362,6 +402,27 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
+    procedure TestPatternPositionTimeZoneMinus()
+    var
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the time
+        // [THEN] it returns the time
+
+        String := '2002-05-30T09:30:10-06:00';
+        Pattern := '(-|\+)\d{2}:\d{2}';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(20, Position, '');
+        Assert.AreEqual('-06:00', MatchedString, '');
+    end;
+
+
+    [Test]
     procedure TestPatternPositionDate()
     var
         String: Text;
@@ -379,6 +440,46 @@ codeunit 50138 "FPFr Test Regex Functions"
         FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(1, Position, '');
         Assert.AreEqual('2002-05-30', MatchedString, '');
+    end;
+
+    [Test]
+    procedure TestPatternPositionEmptyString()
+    var
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the date
+        // [THEN] it returns the date
+
+        String := '';
+        Pattern := '\d{4}-\d{2}-\d{2}';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(0, Position, '');
+        Assert.AreEqual('', MatchedString, '');
+    end;
+
+    [Test]
+    procedure TestPatternPositionEmptyPattern()
+    var
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the date
+        // [THEN] it returns the date
+
+        String := '2002-05-30T09:30:10+06:00';
+        Pattern := '';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(0, Position, '');
+        Assert.AreEqual('', MatchedString, '');
     end;
 
 }

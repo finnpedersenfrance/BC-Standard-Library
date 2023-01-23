@@ -41,8 +41,8 @@ codeunit 50132 "FPFr Test Evaluate XML"
         // [WHEN] Evaluating it 
         // [THEN] We get a date
 
-        DateTimeText := '2019-05-07';
-        ExpectedDate := CreateDateTime(20190507D, 0T);
+        DateTimeText := '2019-05-07Z';
+        ExpectedDate := CreateDateTime(20190507D, 010000T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
@@ -267,6 +267,82 @@ codeunit 50132 "FPFr Test Evaluate XML"
     // Specification
     // https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
 
+    [Test]
+    procedure TestEvaluateDateTimeZoneFromXML()
+    var
+        FoundDate: Date;
+        FoundTime: Time;
+        FoundUtc: Boolean;
+        FoundNegativeTimeZone: Boolean;
+        FoundZone: Time;
+        Iso8601: Text;
+    begin
+        // [SCENARIO #017] Evaluating correct Iso 8601 Date Time
+        // [GIVEN] a  Iso 8601 Date Time string
+        // [WHEN] Evaluating it 
+        // [THEN] We get expected Date, Time, and Time Zone / UTC marker
+
+        Iso8601 := '2002-09-24';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), '');
+        Assert.AreEqual(20020924D, FoundDate, Iso8601);
+
+        Iso8601 := '2002-09-24Z';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020924D, FoundDate, Iso8601);
+        Assert.IsTrue(FoundUtc, 'UTC detected.: ' + Iso8601);
+
+        Iso8601 := '2002-09-24-06:00';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020924D, FoundDate, Iso8601);
+        Assert.AreEqual(060000T, FoundZone, Iso8601);
+        Assert.IsTrue(FoundNegativeTimeZone, 'Negative Time Zone: ' + Iso8601);
+
+        Iso8601 := '2002-09-24+06:00';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020924D, FoundDate, Iso8601);
+        Assert.AreEqual(060000T, FoundZone, Iso8601);
+        Assert.IsFalse(FoundNegativeTimeZone, 'Positive Time Zone: ' + Iso8601);
+
+        Iso8601 := '2002-05-30T09:00:00';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(090000T, FoundTime, Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10.5';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010.5T, FoundTime, Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10.56';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010.56T, FoundTime, Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10.567';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010.567T, FoundTime, Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10Z';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010T, FoundTime, Iso8601);
+        Assert.IsTrue(FoundUtc, 'UTC detected: ' + Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10-06:00';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010T, FoundTime, Iso8601);
+        Assert.AreEqual(060000T, FoundZone, Iso8601);
+        Assert.IsTrue(FoundNegativeTimeZone, 'Negative Time Zone: ' + Iso8601);
+
+        Iso8601 := '2002-05-30T09:30:10+06:00';
+        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.AreEqual(20020530D, FoundDate, Iso8601);
+        Assert.AreEqual(093010T, FoundTime, Iso8601);
+        Assert.AreEqual(060000T, FoundZone, Iso8601);
+        Assert.IsFalse(FoundNegativeTimeZone, 'Positive Time Zone: ' + Iso8601);
+    end;
 
 }
 
