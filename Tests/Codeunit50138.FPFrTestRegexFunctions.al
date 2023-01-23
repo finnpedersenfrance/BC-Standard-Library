@@ -322,18 +322,63 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
-    procedure TestPatternPosition()
+    procedure TestPatternPositionTime()
     var
         String: Text;
         Pattern: Text;
         Position: Integer;
         MatchedString: Text;
     begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the time
+        // [THEN] it returns the time
+
         String := '2002-05-30T09:30:10+06:00';
         Pattern := 'T\d{2}:\d{2}:\d{2}';
         FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(11, Position, '');
         Assert.AreEqual('T09:30:10', MatchedString, '');
+    end;
+
+    [Test]
+    procedure TestPatternPositionTimeZone()
+    var
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the time
+        // [THEN] it returns the time
+
+        String := '2002-05-30T09:30:10+06:00';
+        Pattern := '(-|\+)\d{2}:\d{2}';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(20, Position, '');
+        Assert.AreEqual('+06:00', MatchedString, '');
+    end;
+
+    [Test]
+    procedure TestPatternPositionDate()
+    var
+        String: Text;
+        Pattern: Text;
+        Position: Integer;
+        MatchedString: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the date
+        // [THEN] it returns the date
+
+        String := '2002-05-30T09:30:10+06:00';
+        Pattern := '\d{4}-\d{2}-\d{2}';
+        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        Assert.AreEqual(1, Position, '');
+        Assert.AreEqual('2002-05-30', MatchedString, '');
     end;
 
 }
