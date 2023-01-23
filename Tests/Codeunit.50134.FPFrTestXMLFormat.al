@@ -80,7 +80,7 @@ codeunit 50134 "FPFr XML Format"
     [Test]
     procedure TestXMLFormatTrue()
     begin
-        // [SCENARIO #006] Formating boolean
+        // [SCENARIO #007] Formating boolean
         // [GIVEN] true
         // [WHEN] formating
         // [THEN] correct XML string
@@ -91,7 +91,7 @@ codeunit 50134 "FPFr XML Format"
     [Test]
     procedure TestXMLFormatFalse()
     begin
-        // [SCENARIO #006] Formating boolean
+        // [SCENARIO #008] Formating boolean
         // [GIVEN] false
         // [WHEN] formating
         // [THEN] correct XML string
@@ -105,7 +105,7 @@ codeunit 50134 "FPFr XML Format"
         CodeGUID: Guid;
         TextGUID: Text;
     begin
-        // [SCENARIO #006] Formating GUID
+        // [SCENARIO #009] Formating GUID
         // [GIVEN] a new GUID
         // [WHEN] formating
         // [THEN] correct XML string
@@ -120,6 +120,11 @@ codeunit 50134 "FPFr XML Format"
     var
         CustomerBlocked: Enum "Customer Blocked";
     begin
+        // [SCENARIO #009] Formating Enum
+        // [GIVEN] a new Enum
+        // [WHEN] formating
+        // [THEN] correct XML string
+
         Assert.AreEqual('2', FPFrStandardLibrary.XMLFormat(CustomerBlocked::Invoice), '');
     end;
 
