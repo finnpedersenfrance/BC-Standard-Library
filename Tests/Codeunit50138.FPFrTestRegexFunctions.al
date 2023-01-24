@@ -67,6 +67,17 @@ codeunit 50138 "FPFr Test Regex Functions"
     end;
 
     [Test]
+    procedure TestRegexIsCharacterStringSpecial()
+    begin
+        // [SCENARIO #001] A character is a string with length 1
+        // [GIVEN] Given a character
+        // [WHEN] testing
+        // [THEN] it is true
+
+        Assert.IsTrue(FPFrStandardLibrary.RegexIsCharacterString('\d'), '');
+    end;
+
+    [Test]
     procedure TestRegexCharacterClassEmpty()
     begin
         // [SCENARIO #001] A character class starts and ends with square brackets.
@@ -86,6 +97,28 @@ codeunit 50138 "FPFr Test Regex Functions"
         // [THEN] it returns the string included in square brackets
 
         Assert.AreEqual('[xxx]', FPFrStandardLibrary.RegexCharacterClass('xxx'), '');
+    end;
+
+    [Test]
+    procedure TestRegexGroup()
+    begin
+        // [SCENARIO #001] A group starts and ends with brackets.
+        // [GIVEN] Given a non empty string
+        // [WHEN] creating the pattern
+        // [THEN] it returns the string included in brackets
+
+        Assert.AreEqual('(xxx)', FPFrStandardLibrary.RegexGroup('xxx'), '');
+    end;
+
+    [Test]
+    procedure TestRegexGroupEmpty()
+    begin
+        // [SCENARIO #001] A group starts and ends with brackets.
+        // [GIVEN] Given an empty string
+        // [WHEN] creating the pattern
+        // [THEN] it returns the empty string
+
+        Assert.AreEqual('', FPFrStandardLibrary.RegexGroup(''), '');
     end;
 
     [Test]
@@ -480,6 +513,103 @@ codeunit 50138 "FPFr Test Regex Functions"
         FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(0, Position, '');
         Assert.AreEqual('', MatchedString, '');
+    end;
+
+    [Test]
+    procedure TestRegexXOrMore()
+    begin
+        Assert.AreEqual('xxx{3,}', FPFrStandardLibrary.RegexXOrMore('xxx', 3), '');
+    end;
+
+    [Test]
+    procedure TestRegexExactly()
+    begin
+        Assert.AreEqual('xxx{3}', FPFrStandardLibrary.RegexExactly('xxx', 3), '');
+    end;
+
+    [Test]
+    procedure TestRegexInterval()
+    begin
+        Assert.AreEqual('xxx{3,5}', FPFrStandardLibrary.RegexInterval('xxx', 3, 5), '');
+    end;
+
+    [Test]
+    procedure TestRegexPassiveGroup()
+    begin
+        Assert.AreEqual('(?:xxx)', FPFrStandardLibrary.RegexPassiveGroup('xxx'), '');
+    end;
+
+    [Test]
+    procedure TestRegexDigit()
+    begin
+        Assert.AreEqual('\d', FPFrStandardLibrary.RegexDigit(), '');
+    end;
+
+    [Test]
+    procedure TestRegexPlus()
+    begin
+        Assert.AreEqual('\+', FPFrStandardLibrary.RegexPlus(), '');
+    end;
+
+    [Test]
+    procedure TestRegexDecimalPoint()
+    begin
+        Assert.AreEqual('\.', FPFrStandardLibrary.RegexDecimalPoint(), '');
+    end;
+
+
+    [Test]
+    procedure TestRegexAnyChar()
+    begin
+        Assert.AreEqual('.', FPFrStandardLibrary.RegexAnyChar(), '');
+    end;
+
+    procedure DigitGroup(Number: Integer) Pattern: Text;
+    begin
+        Pattern := FPFrStandardLibrary.RegexGroup(FPFrStandardLibrary.RegexExactly(FPFrStandardLibrary.RegexDigit(), Number));
+    end;
+
+    [Test]
+    procedure TestPatternBuilding()
+    var
+        DatePattern: Text;
+        TimePattern: Text;
+        FractionPattern: Text;
+        ZonePattern: Text;
+        Pattern: Text;
+        ExpectedPattern: Text;
+    begin
+        // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
+        // [GIVEN] Given correct iso 8601 datetime string
+        // [WHEN] searching for the date
+        // [THEN] it returns the date
+
+        ExpectedPattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
+
+        DatePattern := DigitGroup(4) + '-' + DigitGroup(2) + '-' + DigitGroup(2); // (\d{4})-(\d{2})-(\d{2})
+        TimePattern := 'T' + DigitGroup(2) + ':' + DigitGroup(2) + ':'; // T(\d{2}):(\d{2}):
+
+        FractionPattern := FPFrStandardLibrary.RegexDecimalPoint() + FPFrStandardLibrary.RegexZeroOrMore(FPFrStandardLibrary.RegexDigit()); // \.\d*
+        FractionPattern := FPFrStandardLibrary.RegexPassiveGroup(FractionPattern); // (?:\.\d*)
+        FractionPattern := FPFrStandardLibrary.RegexOptional(FractionPattern); // (?:\.\d*)?
+        FractionPattern := FPFrStandardLibrary.RegexExactly(FPFrStandardLibrary.RegexDigit(), 2) + FractionPattern; // \d{2}(?:\.\d*)?
+        FractionPattern := FPFrStandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
+
+        ZonePattern := FPFrStandardLibrary.RegexGroup(
+            FPFrStandardLibrary.RegexOptional(
+                FPFrStandardLibrary.RegexDisjunction3(
+                    '-' + DigitGroup(2) + ':' + DigitGroup(2),
+                    FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
+                    'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
+
+        TimePattern := TimePattern + FractionPattern;
+        TimePattern := FPFrStandardLibrary.RegexOptional(TimePattern);
+
+        Pattern := DatePattern + TimePattern + ZonePattern;
+        Pattern := FPFrStandardLibrary.RegexEndLine(Pattern);
+        Pattern := FPFrStandardLibrary.RegexStartLine(Pattern);
+
+        Assert.AreEqual(ExpectedPattern, Pattern, '');
     end;
 
 }

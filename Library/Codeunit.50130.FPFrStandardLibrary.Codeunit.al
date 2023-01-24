@@ -45,7 +45,20 @@ Codeunit 50130 "FPFr Standard Library"
 
     procedure IsCharacterString(String: Text): Boolean
     begin
-        exit(StrLen(String) = 1);
+        exit(strlen(String) = 1);
+    end;
+
+
+    procedure RegexIsCharacterString(String: Text): Boolean
+    begin
+        case strlen(String) of
+            1:
+                exit(true);
+            2:
+                exit(CopyStr(String, 1, 1) = '\');
+            else
+                exit(false);
+        end;
     end;
 
     procedure RegexCharacterClass(String: Text) Pattern: Text
@@ -54,6 +67,18 @@ Codeunit 50130 "FPFr Standard Library"
             exit('');
 
         exit('[' + String + ']');
+    end;
+
+    procedure RegexGroup(String: Text) Pattern: Text
+    begin
+        if IsEmptyString(String) then
+            exit('');
+
+        if StrLen(String) >= 3 then
+            if (CopyStr(String, 1, 1) = '(') and (CopyStr(String, StrLen(String), 1) = ')') then
+                exit(String);
+
+        exit('(' + String + ')');
     end;
 
     procedure RegexDisjunction2(String1: Text; String2: Text) Pattern: Text
@@ -83,10 +108,10 @@ Codeunit 50130 "FPFr Standard Library"
         case true of
             IsEmptyString(String):
                 exit('');
-            IsCharacterString(String):
+            RegexIsCharacterString(String):
                 exit(String + '?');
             else
-                exit('(' + String + ')?');
+                exit(RegexGroup(String) + '?');
         end;
     end;
 
@@ -95,10 +120,10 @@ Codeunit 50130 "FPFr Standard Library"
         case true of
             IsEmptyString(String):
                 exit('');
-            IsCharacterString(String):
+            RegexIsCharacterString(String):
                 exit(String + '*');
             else
-                exit('(' + String + ')*');
+                exit(RegexGroup(String) + '*');
         end;
     end;
 
@@ -107,11 +132,26 @@ Codeunit 50130 "FPFr Standard Library"
         case true of
             IsEmptyString(String):
                 exit('');
-            IsCharacterString(String):
+            RegexIsCharacterString(String):
                 exit(String + '+');
             else
-                exit('(' + String + ')+');
+                exit(RegexGroup(String) + '+');
         end;
+    end;
+
+    procedure RegexXOrMore(String: Text; Number: Integer) Pattern: Text
+    begin
+        exit(StrSubstNo('%1{%2,}', String, Number));
+    end;
+
+    procedure RegexExactly(String: Text; Number: Integer) Pattern: Text
+    begin
+        exit(StrSubstNo('%1{%2}', String, Number));
+    end;
+
+    procedure RegexInterval(String: Text; Min: Integer; Max: Integer) Pattern: Text
+    begin
+        exit(StrSubstNo('%1{%2,%3}', String, Min, Max));
     end;
 
     procedure RegexNegation(String: Text) Pattern: Text
@@ -138,6 +178,30 @@ Codeunit 50130 "FPFr Standard Library"
         exit(String + '$');
     end;
 
+    procedure RegexPassiveGroup(String: Text) Pattern: Text
+    begin
+        exit(RegexGroup(StrSubstNo('?:%1', String)));
+    end;
+
+    procedure RegexDigit(): Text
+    begin
+        exit('\d');
+    end;
+
+    procedure RegexPlus(): Text
+    begin
+        exit('\+');
+    end;
+
+    procedure RegexDecimalPoint(): Text
+    begin
+        exit('\.');
+    end;
+
+    procedure RegexAnyChar(): Text
+    begin
+        exit('.');
+    end;
 
     procedure PatternPosition(String: Text; Pattern: Text; var Position: Integer; var MatchedString: Text)
     var

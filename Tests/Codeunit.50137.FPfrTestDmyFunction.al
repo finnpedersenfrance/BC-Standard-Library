@@ -1,4 +1,4 @@
-codeunit 50137 "FPfr Test Dmy Function"
+codeunit 50137 "FPFr Test Dmy Function"
 {
     Subtype = Test;
 
