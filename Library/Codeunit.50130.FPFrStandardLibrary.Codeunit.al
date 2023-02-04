@@ -229,8 +229,19 @@ Codeunit 50130 "FPFr Standard Library"
     end;
 
     procedure EvaluateDateTimeFromXML(var FoundDateTime: DateTime; Iso8601: Text): Boolean
+    var
+        FoundDate: Date;
+        FoundTime: Time;
+        FoundUtc: Boolean;
+        FoundNegativeTimeZone: Boolean;
+        FoundZone: Time;
     begin
-        exit(Evaluate(FoundDateTime, Iso8601, 9));
+        // exit(Evaluate(FoundDateTime, Iso8601, 9)); This causes a timezone difference and depends on where the server is.
+        FoundDateTime := 0DT;
+        if EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601) then begin
+            FoundDateTime := CreateDateTime(FoundDate, FoundTime);
+            exit(true);
+        end;
     end;
 
     procedure EvaluateDateTimeZoneFromXML(var FoundDate: Date; var FoundTime: Time; var FoundUtc: Boolean; var FoundNegativeTimeZone: Boolean; var FoundZone: Time; Iso8601: Text) Found: Boolean

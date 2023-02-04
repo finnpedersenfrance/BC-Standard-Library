@@ -4,11 +4,11 @@ codeunit 50137 "FPFr Test Dmy Function"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     trigger OnRun()
     begin
-        // [FEATURE] Building Dates 
+        // [FEATURE] Building Dates
     end;
 
     [Test]
@@ -19,7 +19,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     begin
         // [SCENARIO #007] The try-function with catch the error
         // [GIVEN] February 29th in a non leap year
-        // [WHEN] Evaluating it 
+        // [WHEN] Evaluating it
         // [THEN] We should not get a date
 
         ExpectedDate := 0D;
@@ -35,7 +35,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     begin
         // [SCENARIO #008] The try-function with catch the error
         // [GIVEN] February 29th in a leap year
-        // [WHEN] Evaluating it 
+        // [WHEN] Evaluating it
         // [THEN] We should get a date
 
         ExpectedDate := DMY2Date(29, 2, 2020);
@@ -48,7 +48,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     begin
         // [SCENARIO #009] Is a give day, month, year a realy date
         // [GIVEN] February 29th in a leap year
-        // [WHEN] Evaluating it 
+        // [WHEN] Evaluating it
         // [THEN] We should get a Yes
 
         Assert.IsTrue(FPFrStandardLibrary.IsDmyValidDate(29, 2, 2020), 'Expected to making a date out of Febrary 29th, 2020.');
@@ -59,7 +59,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     begin
         // [SCENARIO #009] Is a give day, month, year a realy date
         // [GIVEN] February 29th in a non leap year
-        // [WHEN] Evaluating it 
+        // [WHEN] Evaluating it
         // [THEN] We should get a No
 
         Assert.IsFalse(FPFrStandardLibrary.IsDmyValidDate(29, 2, 2019), 'Febrary 29th, 2019 is not a valid date.');
@@ -74,7 +74,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     begin
         // [SCENARIO #010] Given a wrong date, will it return the default value.
         // [GIVEN] February 29th in a non leap year
-        // [WHEN] Evaluating it 
+        // [WHEN] Evaluating it
         // [THEN] We should get the default value
 
         DefaultDate := Today;

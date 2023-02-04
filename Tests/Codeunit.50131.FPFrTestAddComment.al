@@ -4,12 +4,12 @@ codeunit 50131 "FPFr Test Add Comment"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
 
     trigger OnRun()
     begin
-        // [FEATURE] Accumulate comments 
+        // [FEATURE] Accumulate comments
     end;
 
     procedure AddComment(var Comment: Text; NewComment: Text)
@@ -105,7 +105,7 @@ codeunit 50131 "FPFr Test Add Comment"
         OriginalComment: Text;
         ExpectedComment: Text;
     begin
-        // [SCENARIO #006] Adding a new comment to a list of comments 
+        // [SCENARIO #006] Adding a new comment to a list of comments
         // [GIVEN] An orignal list of comments
         // [WHEN] Adding a new comment
         // [THEN] The resulting string is the orignal string with the new comment added

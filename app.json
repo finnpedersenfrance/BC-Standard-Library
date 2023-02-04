@@ -10,19 +10,12 @@
   "help": "https://finnpedersenkazes.github.io/",
   "url": "https://finnpedersenkazes.github.io/",
   "logo": "Logo.png",
-  "dependencies": [
+  "dependencies": [],
+  "resourceExposurePolicy":
     {
-      "id":  "dd0be2ea-f733-4d65-bb34-a28f4624fb14",
-      "name":  "Library Assert",
-      "publisher":  "Microsoft",
-      "version":  "21.0.0.0"
-    }
-  ],
-  "resourceExposurePolicy": 
-    {
-      "applyToDevExtension": true, 
-      "allowDebugging": true, 
-      "allowDownloadingSource": true, 
+      "applyToDevExtension": true,
+      "allowDebugging": true,
+      "allowDownloadingSource": true,
       "includeSourceInSymbolFile": true
     },
   "screenshots": [],

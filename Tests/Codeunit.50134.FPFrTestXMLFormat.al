@@ -4,7 +4,7 @@ codeunit 50134 "FPFr XML Format"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     trigger OnRun()
     begin

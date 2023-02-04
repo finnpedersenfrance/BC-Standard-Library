@@ -4,7 +4,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     trigger OnRun()
     begin
@@ -19,7 +19,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
     begin
         // [SCENARIO #001] Small int to hex.
         // [GIVEN] 15
-        // [WHEN] converting 
+        // [WHEN] converting
         // [THEN] The resulting string is F.
 
         Int := 15;
@@ -35,7 +35,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
     begin
         // [SCENARIO #002] Small int to hex.
         // [GIVEN] 255
-        // [WHEN] converting 
+        // [WHEN] converting
         // [THEN] The resulting string is FF.
 
         Int := 255;
@@ -51,7 +51,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
     begin
         // [SCENARIO #003] Small hex to int.
         // [GIVEN] F
-        // [WHEN] converting 
+        // [WHEN] converting
         // [THEN] The resulting string is 15.
 
         Int := 15;
@@ -67,7 +67,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
     begin
         // [SCENARIO #004] Small hex to int.
         // [GIVEN] FF
-        // [WHEN] converting 
+        // [WHEN] converting
         // [THEN] The resulting string is 255.
 
         Int := 255;
@@ -277,7 +277,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
         // [SCENARIO #015] Attempting to convert a non hex string, with a default value.
         // [GIVEN] non hex value and a negative integer
         // [WHEN] converting it to hex
-        // [THEN] returns zero because our default value was 
+        // [THEN] returns zero because our default value was
 
         DefaultIntValue := -1;
         Int := FPFrStandardLibrary.Hex2IntWithDefault('Not a hex value', DefaultIntValue);
@@ -306,7 +306,7 @@ Codeunit 50133 "FPFr Test Hex Int Conversion"
         Hex: Text;
     begin
         // [SCENARIO #017] Attempting to convert a 17 character hex string.
-        // [GIVEN] 
+        // [GIVEN]
         // [WHEN] converting it to integer
         // [THEN] it fails.
 
