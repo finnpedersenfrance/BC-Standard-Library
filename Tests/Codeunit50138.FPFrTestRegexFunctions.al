@@ -4,7 +4,7 @@ codeunit 50138 "FPFr Test Regex Functions"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     trigger OnRun()
     begin

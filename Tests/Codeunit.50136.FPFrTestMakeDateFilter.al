@@ -4,12 +4,12 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
 
     trigger OnRun()
     begin
-        // [FEATURE] Correct Date Filters 
+        // [FEATURE] Correct Date Filters
     end;
 
     [Test]

@@ -28,7 +28,17 @@ Codeunit 50130 "FPFr Standard Library"
 
     procedure XMLFormat(Value: Variant): Text
     begin
-        exit(Format(Value, 0, 9));
+        if Value.IsDateTime then
+            exit(XMLFormatDateTime(Value))
+        else
+            exit(Format(Value, 0, 9));
+    end;
+
+    procedure XMLFormatDateTime(Value: DateTime) Result: Text
+    begin
+        // To avoid timezone conversion we do not use the option 9.
+        // https://learn.microsoft.com/en-us/dynamics-nav/format-property
+        Result := Format(Value, 0, '<Year4>-<Month,2>-<Day,2>T<Hours24,2>:<Minutes,2>:<Seconds,2><Second dec>');
     end;
 
     procedure RegexIsMatch(String: Text; Pattern: Text): Boolean
@@ -229,8 +239,17 @@ Codeunit 50130 "FPFr Standard Library"
     end;
 
     procedure EvaluateDateTimeFromXML(var FoundDateTime: DateTime; Iso8601: Text): Boolean
+    var
+        FoundDate: Date;
+        FoundTime: Time;
+        FoundUtc: Boolean;
+        FoundNegativeTimeZone: Boolean;
+        FoundZone: Time;
     begin
-        exit(Evaluate(FoundDateTime, Iso8601, 9));
+        // exit(Evaluate(FoundDateTime, Iso8601, 9)); This causes a timezone difference and depends on where the server is.
+        FoundDateTime := 0DT;
+        if EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601) then
+            exit(TryCreateDateTime(FoundDate, FoundTime, FoundDateTime));
     end;
 
     procedure EvaluateDateTimeZoneFromXML(var FoundDate: Date; var FoundTime: Time; var FoundUtc: Boolean; var FoundNegativeTimeZone: Boolean; var FoundZone: Time; Iso8601: Text) Found: Boolean
@@ -239,25 +258,48 @@ Codeunit 50130 "FPFr Standard Library"
         String: Text;
         Position: Integer;
         MatchedString: Text;
+        Year: Integer;
+        Month: Integer;
+        Day: Integer;
+        Hours: Integer;
+        Minutes: Integer;
+        Seconds: Decimal;
+        ZoneHours: Integer;
+        ZoneMinutes: Integer;
     begin
         FoundDate := 0D;
-        FoundTime := 0T;
-        FoundZone := 0T;
+        FoundTime := 000000T;
+        FoundZone := 000000T;
         FoundUtc := false;
+        if StrLen(Iso8601) < 10 then
+            exit;
 
+        Found := true;
         Pattern := '(\d{4})-(\d{2})-(\d{2})'; // Date
         String := Iso8601;
         PatternPosition(String, Pattern, Position, MatchedString);
         if Position = 1 then begin
-            Evaluate(FoundDate, MatchedString, 9);
+            Evaluate(Year, CopyStr(MatchedString, 1, 4));
+            Evaluate(Month, CopyStr(MatchedString, 6, 2));
+            Evaluate(Day, CopyStr(MatchedString, 9, 2));
             String := CopyStr(String, StrLen(MatchedString) + 1);
+            if not TryDmy2Date(Day, Month, Year, FoundDate) then begin
+                FoundDate := 0D;
+                Found := false;
+            end;
         end;
 
         Pattern := 'T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)'; // Time
         PatternPosition(String, Pattern, Position, MatchedString);
         if Position = 1 then begin
-            Evaluate(FoundTime, CopyStr(MatchedString, 2), 9);
-            String := CopyStr(String, StrLen(MatchedString) + 1)
+            Evaluate(Hours, CopyStr(MatchedString, 2, 2));
+            Evaluate(Minutes, CopyStr(MatchedString, 5, 2));
+            Evaluate(Seconds, CopyStr(MatchedString, 8));
+            FoundTime := 000000T;
+            Found := (Hours < 24) and (Minutes < 60) and (Seconds < 60);
+            if Found then
+                FoundTime := FoundTime + Hours * 60 * 60 * 1000 + Minutes * 60 * 1000 + Seconds * 1000;
+            String := CopyStr(String, StrLen(MatchedString) + 1);
         end;
 
         Pattern := 'Z'; // UTC
@@ -271,12 +313,19 @@ Codeunit 50130 "FPFr Standard Library"
             PatternPosition(String, Pattern, Position, MatchedString);
             if Position = 1 then begin
                 FoundNegativeTimeZone := CopyStr(MatchedString, 1, 1) = '-';
-                Evaluate(FoundZone, CopyStr(MatchedString, 2) + ':00', 9);
+                Evaluate(ZoneHours, CopyStr(MatchedString, 2, 2));
+                Evaluate(ZoneMinutes, CopyStr(MatchedString, 5, 2));
+                FoundZone := 000000T;
+                Found := (Hours < 24) and (Minutes < 60) and (Seconds < 60);
+                if Found then
+                    FoundZone := FoundZone + ZoneHours * 60 * 60 * 1000 + ZoneMinutes * 60 * 1000;
             end;
         end;
 
-        Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
-        Found := RegexIsMatch(Iso8601, Pattern);
+        if Found then begin
+            Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
+            Found := RegexIsMatch(Iso8601, Pattern);
+        end;
     end;
 
     procedure EvaluateBooleanFromXML(var FoundBoolean: Boolean;
@@ -330,6 +379,12 @@ Codeunit 50130 "FPFr Standard Library"
     procedure TryDmy2Date(Day: Integer; Month: Integer; Year: Integer; var NewDate: Date)
     begin
         NewDate := Dmy2date(Day, Month, Year);
+    end;
+
+    [TryFunction]
+    procedure TryCreateDateTime(Date: Date; Time: Time; var NewDateTime: DateTime)
+    begin
+        NewDateTime := CreateDateTime(Date, Time);
     end;
 
     procedure IsDmyValidDate(Day: Integer; Month: Integer; Year: Integer): Boolean

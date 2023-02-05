@@ -4,7 +4,7 @@ codeunit 50135 "FPFr Test String Functions"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     [Test]
     procedure TestRemoveChar()

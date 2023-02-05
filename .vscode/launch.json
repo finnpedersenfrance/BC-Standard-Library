@@ -5,20 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Your own server",
+            "name": "Microsoft cloud sandbox",
             "request": "launch",
             "type": "al",
-            "environmentType": "OnPrem",
-            "server": "https://devenvbc.westeurope.cloudapp.azure.com",
-            "serverInstance": "BC",
-            "authentication": "UserPassword",
+            "environmentType": "Sandbox",
+            "environmentName": "fpfrbcdev",
             "startupObjectId": 130451,
             "startupObjectType": "Page",
-            "breakOnError": "All",
+            "breakOnError": "ExcludeTry",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true,
-            "tenant": "default"
+            "enableSqlInformationDebugger": true
         }
     ]
 }

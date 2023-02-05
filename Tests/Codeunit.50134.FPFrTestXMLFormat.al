@@ -4,7 +4,7 @@ codeunit 50134 "FPFr XML Format"
 
     var
         FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Library Assert";
+        Assert: Codeunit "Standard Library Assert";
 
     trigger OnRun()
     begin
@@ -52,7 +52,7 @@ codeunit 50134 "FPFr XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('2023-01-20T12:34:56Z', FPFrStandardLibrary.XMLFormat(CreateDateTime(DMY2Date(20, 1, 2023), 123456T)), '');
+        Assert.AreEqual('2023-01-20T12:34:56', FPFrStandardLibrary.XMLFormat(CreateDateTime(DMY2Date(20, 1, 2023), 123456T)), '');
     end;
 
     [test]
