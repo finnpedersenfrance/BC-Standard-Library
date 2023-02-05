@@ -12,7 +12,7 @@
             "environmentName": "fpfrbcdev",
             "startupObjectId": 130451,
             "startupObjectType": "Page",
-            "breakOnError": "All",
+            "breakOnError": "ExcludeTry",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true

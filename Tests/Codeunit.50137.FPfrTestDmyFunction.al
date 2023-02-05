@@ -17,7 +17,7 @@ codeunit 50137 "FPFr Test Dmy Function"
         FoundDate: Date;
         ExpectedDate: Date;
     begin
-        // [SCENARIO #007] The try-function with catch the error
+        // [SCENARIO #001] The try-function with catch the error
         // [GIVEN] February 29th in a non leap year
         // [WHEN] Evaluating it
         // [THEN] We should not get a date
@@ -33,7 +33,7 @@ codeunit 50137 "FPFr Test Dmy Function"
         FoundDate: Date;
         ExpectedDate: Date;
     begin
-        // [SCENARIO #008] The try-function with catch the error
+        // [SCENARIO #002] The try-function with catch the error
         // [GIVEN] February 29th in a leap year
         // [WHEN] Evaluating it
         // [THEN] We should get a date
@@ -46,7 +46,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     [Test]
     procedure TestIsDmyValidDatePositive()
     begin
-        // [SCENARIO #009] Is a give day, month, year a realy date
+        // [SCENARIO #003] Is a give day, month, year a realy date
         // [GIVEN] February 29th in a leap year
         // [WHEN] Evaluating it
         // [THEN] We should get a Yes
@@ -57,7 +57,7 @@ codeunit 50137 "FPFr Test Dmy Function"
     [Test]
     procedure TestIsDmyValidDateNegative()
     begin
-        // [SCENARIO #009] Is a give day, month, year a realy date
+        // [SCENARIO #004] Is a give day, month, year a realy date
         // [GIVEN] February 29th in a non leap year
         // [WHEN] Evaluating it
         // [THEN] We should get a No
@@ -72,7 +72,7 @@ codeunit 50137 "FPFr Test Dmy Function"
         CalculatedDate: Date;
 
     begin
-        // [SCENARIO #010] Given a wrong date, will it return the default value.
+        // [SCENARIO #005] Given a wrong date, will it return the default value.
         // [GIVEN] February 29th in a non leap year
         // [WHEN] Evaluating it
         // [THEN] We should get the default value
@@ -80,6 +80,38 @@ codeunit 50137 "FPFr Test Dmy Function"
         DefaultDate := Today;
         CalculatedDate := FPFrStandardLibrary.Dmy2DateWithDefault(29, 2, 2019, DefaultDate);
         Assert.AreEqual(DefaultDate, CalculatedDate, '');
+    end;
+
+    [Test]
+    procedure TestTryCreateDateTimeNegative()
+    var
+        CalculatedDateTime: DateTime;
+        ExpectedDateTime: DateTime;
+    begin
+        // [SCENARIO #006] The try-function with catch the error
+        // [GIVEN] a 0D with a time
+        // [WHEN] Evaluating it
+        // [THEN] We should fail
+
+        ExpectedDateTime := 0DT;
+        Assert.IsFalse(FPFrStandardLibrary.TryCreateDateTime(0D, 010000T, CalculatedDateTime), 'Expected TryCreateDateTime to fail making a datetime from a 0D and a non zero time.');
+        Assert.AreEqual(ExpectedDateTime, CalculatedDateTime, 'Expected to evaluate a zero datetime.');
+    end;
+
+    [Test]
+    procedure TestTryCreateDateTimePositive()
+    var
+        CalculatedDateTime: DateTime;
+        ExpectedDateTime: DateTime;
+    begin
+        // [SCENARIO #006] The try-function with catch the error
+        // [GIVEN] a 0D with a time
+        // [WHEN] Evaluating it
+        // [THEN] We should fail
+
+        ExpectedDateTime := CreateDateTime(DMY2Date(29, 2, 2020), 123456T);
+        Assert.IsTrue(FPFrStandardLibrary.TryCreateDateTime(DMY2Date(29, 2, 2020), 123456T, CalculatedDateTime), 'Expected TryCreateDateTime to succeed and return true.');
+        Assert.AreEqual(ExpectedDateTime, CalculatedDateTime, 'Expected to evaluate a correct datetime.');
     end;
 
 }

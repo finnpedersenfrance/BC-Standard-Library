@@ -24,7 +24,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
         // [THEN] We get a date
 
         DateTimeText := '2019-05-07T00:00:00+01:00';
-        ExpectedDate := CreateDateTime(20190507D, 0T);
+        ExpectedDate := CreateDateTime(20190507D, 000000T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
@@ -42,7 +42,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
         // [THEN] We get a date
 
         DateTimeText := '2019-05-07Z';
-        ExpectedDate := CreateDateTime(20190507D, 010000T);
+        ExpectedDate := CreateDateTime(20190507D, 000000T);
         Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
@@ -115,7 +115,7 @@ codeunit 50132 "FPFr Test Evaluate XML"
 
         DateTimeText := '';
         ExpectedDate := 0DT;
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), '');
+        Assert.IsFalse(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), '');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
