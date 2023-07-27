@@ -8,7 +8,7 @@
 
 # Temp files
 .vs/
-
+.alcache/
 # Others
 ~$*
 *~
