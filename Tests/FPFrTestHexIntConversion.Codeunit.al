@@ -1,4 +1,4 @@
-Codeunit 50133 "FPFr Test Hex Int Conversion"
+codeunit 50133 "FPFr Test Hex Int Conversion"
 {
     Subtype = Test;
 

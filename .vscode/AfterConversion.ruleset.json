@@ -1,0 +1,196 @@
+{
+    "name": "After Conversion Ruleset",
+    "description": "This allows us to fix the issues in a prioritized order.",
+    "rules": [
+        {
+            "id": "AA0139",
+            "action": "Error",
+            "justification": "Do not assign a text to a target with smaller size. POTENTIAL RUNTIME ERROR."
+        },
+        {
+            "id": "AA0462",
+            "action": "Error",
+            "justification": "The CalcDate should only be used with DataFormula variables. Alternatively the string should be enclosed using the <> symbols. POTENTIAL RUNTIME ERROR."
+        },
+        {
+            "id": "AL0615",
+            "action": "Error",
+            "justification": "Field '{0}' is not specified as a source expression on page '{1}'. All fields specified in ODataKeyFields must be used as the source expression in a page control. POTENTIAL RUNTIME ERROR."
+        },
+        {
+            "id": "AL0254",
+            "action": "Error",
+            "justification": "Sorting field '{0}' should be part of the keys for table '{1}'. PERFORMANCE."
+        },
+        {
+            "id": "AA0233",
+            "action": "Error",
+            "justification": "Use Get(), FindFirst() and FindLast() without Next() method. PERFORMANCE"
+        },
+        {
+            "id": "AA0181",
+            "action": "Error",
+            "justification": "The FindSet() or Find() methods must be used only in connection with the Next() method. PERFORMANCE"
+        },
+        {
+            "id": "AA0232",
+            "action": "Error",
+            "justification": "The FlowField of a table should be indexed. PERFORMANCE. The CodeAnalyzer has a problem."
+        },
+        {
+            "id": "AA0210",
+            "action": "Error",
+            "justification": "Avoid non-indexed fields into filtering. PERFORMANCE"
+        },
+        {
+            "id": "AA0205",
+            "action": "Error",
+            "justification": "Variables must be initialized before usage. SHOULD BE INVESTIGATED. The CodeAnalyzer has a problem with TransferFields."
+        },
+        {
+            "id": "AA0175",
+            "action": "Error",
+            "justification": "Do not write code that will never be hit. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0136",
+            "action": "Error",
+            "justification": "Do not write code that will never be hit. SHOULD BE INVESTIGATED. We have one case."
+        },
+        {
+            "id": "AW0006",
+            "action": "Error",
+            "justification": "Pages and reports should use the UsageCategory and ApplicationArea properties to be searchable. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0206",
+            "action": "Error",
+            "justification": "The value assigned to a variable must be used. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0244",
+            "action": "Error",
+            "justification": "Do not use identical names for parameters and global variables. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0198",
+            "action": "Error",
+            "justification": "Do not use identical names for local and global variables. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0137",
+            "action": "Error",
+            "justification": "Do not declare variables that are unused. SHOULD BE INVESTIGATED."
+        },
+        {
+            "id": "AA0021",
+            "action": "Error",
+            "justification": "Variable declarations should be ordered by type. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0005",
+            "action": "Error",
+            "justification": "Only use BEGIN..END to enclose compound statements. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0228",
+            "action": "Error",
+            "justification": "The local method must be used; otherwise removed. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0008",
+            "action": "Error",
+            "justification": "Function calls should have parenthesis even if they do not have any parameters. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0074",
+            "action": "Error",
+            "justification": "TextConst and Label variable names should have an approved suffix. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0215",
+            "action": "Error",
+            "justification": "Follow the style guide about the best practices for naming. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0470",
+            "action": "Error",
+            "justification": "Placeholders should have a comment explaining their content. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0073",
+            "action": "Error",
+            "justification": "The name of temporary variable must be prefixed with Temp. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0202",
+            "action": "Error",
+            "justification": "To avoid confusion, do not give local variables the same name as fields, methods, or actions in the same scope. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0241",
+            "action": "Error",
+            "justification": "Use all lowercase letters for reserved language keywords. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0018",
+            "action": "Error",
+            "justification": "The END, IF, REPEAT, UNTIL, FOR, WHILE, and CASE statement should always start a line. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0203",
+            "action": "Error",
+            "justification": "To avoid confusion, do not give methods the same name as fields or actions in the same scope. IMPROVE CODE READABILITY."
+        },
+        {
+            "id": "AA0201",
+            "action": "Error",
+            "justification": "When ApplicationArea is set to 'Basic', you must also specify 'Suite'. BEST PRACTICES."
+        },
+        {
+            "id": "AL0424",
+            "action": "Error",
+            "justification": "The multilanguage syntax is being deprecated. Please update to the new syntax. BEST PRACTICES."
+        },
+        {
+            "id": "AA0225",
+            "action": "Error",
+            "justification": "You must specify a caption in the Caption property for Fields that exist on page objects. BEST PRACTICES."
+        },
+        {
+            "id": "AA0072",
+            "action": "None",
+            "justification": "The name of variables and parameters must be suffixed with the type or object name. BEST PRACTICES."
+        },
+        {
+            "id": "AA0218",
+            "action": "Error",
+            "justification": "You must write a tooltip in the Tooltip property for all controls of type Action and Field that exist on page objects. BEST PRACTICES."
+        },
+        {
+            "id": "AA0217",
+            "action": "None",
+            "justification": "Use a text constant or label for format string in StrSubstNo. BEST PRACTICES."
+        },
+        {
+            "id": "AW0011",
+            "action": "Error",
+            "justification": "Add PromotedOnly=true to some or all promoted actions to avoid identical actions from appearing in both the promoted and default sections of the command bar. BEST PRACTICES."
+        },
+        {
+            "id": "AA0101",
+            "action": "Error",
+            "justification": "Use camel case property values in pages of type API. BEST PRACTICES."
+        },
+        {
+            "id": "AA0102",
+            "action": "Error",
+            "justification": "Use camel case name for field controls in pages of type API. BEST PRACTICES."
+        },
+        {
+            "id": "AS0011",
+            "action": "Error",
+            "justification": "AppSourceCop Error. An affix is required. INVESTIGATE IF NEEDED IN YOUR PROJECT."
+        }
+    ]
+}
