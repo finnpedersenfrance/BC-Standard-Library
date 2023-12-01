@@ -386,6 +386,7 @@ codeunit 50138 "FPFr Test Regex Functions"
         Assert.IsFalse(FPFrStandardLibrary.RegexIsMatch('://www.google.com', Pattern), 'Url checker');
 
         Pattern := '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
+        Pattern := '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'; // Calculated by ChatGPT
         Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('finnpedersenfrance@gmail.com', Pattern), 'Email checker');
 
         Pattern := '^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$';
@@ -610,6 +611,44 @@ codeunit 50138 "FPFr Test Regex Functions"
         Pattern := FPFrStandardLibrary.RegexStartLine(Pattern);
 
         Assert.AreEqual(ExpectedPattern, Pattern, '');
+    end;
+
+    [Test]
+    procedure TestXmlDateTimeRegex()
+    var
+        Pattern: Text;
+        isValidDateTime: Boolean;
+    begin
+        Pattern := '^((\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|([+-])(\d{2}):(\d{2})))$';
+        Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
+
+        // Test a valid XML datetime string in UTC time zone
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00Z', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in UTC time zone was marked as invalid.');
+
+        // Test a valid XML datetime string in a positive time offset
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00+05:00', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in a positive time offset was marked as invalid.');
+
+        // Test a valid XML datetime string in a negative time offset
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00-08:00', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in a negative time offset was marked as invalid.');
+
+        // Test a valid XML datetime string with fractional seconds
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123Z', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with fractional seconds was marked as invalid.');
+
+        // Test a valid XML datetime string with positive fractional seconds and a positive time offset
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123+05:00', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with positive fractional seconds and a positive time offset was marked as invalid.');
+
+        // Test a valid XML datetime string with negative fractional seconds and a negative time offset
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.987-08:00', Pattern);
+        Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with negative fractional seconds and a negative time offset was marked as invalid.');
+
+        // Test an empty string
+        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('', Pattern);
+        Assert.IsFalse(isValidDateTime, 'Empty string was marked as valid XML datetime string.');
     end;
 
 }
