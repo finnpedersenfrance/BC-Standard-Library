@@ -5,22 +5,23 @@
   "version": "1.0.0.0",
   "brief": "BC Standard Library",
   "description": "The BC Standard Library is a collection of the most used functions.",
-  "privacyStatement": "https://finnpedersenkazes.github.io/",
-  "EULA": "https://finnpedersenkazes.github.io/",
-  "help": "https://finnpedersenkazes.github.io/",
-  "url": "https://finnpedersenkazes.github.io/",
+  "privacyStatement": "https://www.finnpedersenfrance.com/",
+  "EULA": "https://www.finnpedersenfrance.com/",
+  "help": "https://www.finnpedersenfrance.com/",
+  "url": "https://www.finnpedersenfrance.com/",
   "logo": "Logo.png",
   "dependencies": [],
   "resourceExposurePolicy":
-    {
-      "applyToDevExtension": true,
-      "allowDebugging": true,
-      "allowDownloadingSource": true,
-      "includeSourceInSymbolFile": true
-    },
+  {
+    "applyToDevExtension": true,
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
   "screenshots": [],
   "platform": "1.0.0.0",
-  "application": "22.0.0.0",
+  "application": "23.0.0.0",
+  "runtime": "11.0",
   "applicationInsightsConnectionString": "XYZ",
   "features": [
     "TranslationFile"
@@ -31,7 +32,6 @@
       "to": 50139
     }
   ],
-  "contextSensitiveHelpUrl": "https://finnpedersenkazes.github.io/",
-  "runtime": "10.0"
+  "contextSensitiveHelpUrl": "https://www.finnpedersenfrance.com/"
 }
 
