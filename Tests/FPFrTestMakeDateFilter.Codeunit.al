@@ -24,8 +24,8 @@ codeunit 50136 "FPFr Test Make Date Filter"
         // [WHEN] Adding an empty string
         // [THEN] The resulting string is empty.
 
-        StartingDate := CalcDate('-10D', Today);
-        EndingDate := CalcDate('20D', StartingDate);
+        StartingDate := CalcDate('<-10D>', Today);
+        EndingDate := CalcDate('<20D>', StartingDate);
         ExpectedString := StrSubstNo('%1..%2', StartingDate, EndingDate);
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
@@ -64,7 +64,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
         StartingDate := 0D;
         EndingDate := Today;
-        ExpectedString := StrSubstNo('..%2', StartingDate, EndingDate);
+        ExpectedString := StrSubstNo('..%1', EndingDate);
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
@@ -83,7 +83,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
         StartingDate := Today;
         EndingDate := 0D;
-        ExpectedString := StrSubstNo('%1..', StartingDate, EndingDate);
+        ExpectedString := StrSubstNo('%1..', StartingDate);
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;

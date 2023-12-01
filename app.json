@@ -11,20 +11,14 @@
   "url": "https://www.finnpedersenfrance.com/",
   "logo": "Logo.png",
   "dependencies": [],
-  "resourceExposurePolicy":
-  {
-    "applyToDevExtension": true,
-    "allowDebugging": true,
-    "allowDownloadingSource": true,
-    "includeSourceInSymbolFile": true
-  },
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "23.0.0.0",
   "runtime": "11.0",
   "applicationInsightsConnectionString": "XYZ",
   "features": [
-    "TranslationFile"
+    "TranslationFile",
+    "NoImplicitWith"
   ],
   "idRanges": [
     {
@@ -32,6 +26,11 @@
       "to": 50139
     }
   ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
   "contextSensitiveHelpUrl": "https://www.finnpedersenfrance.com/"
 }
 

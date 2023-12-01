@@ -1,4 +1,4 @@
-Codeunit 50130 "FPFr Standard Library"
+codeunit 50130 "FPFr Standard Library"
 {
     trigger OnRun()
     begin
@@ -43,7 +43,7 @@ Codeunit 50130 "FPFr Standard Library"
 
     procedure RegexIsMatch(String: Text; Pattern: Text): Boolean
     var
-        Regex: Codeunit Regex;
+        Regex: codeunit Regex;
     begin
         exit(Regex.IsMatch(String, Pattern, 0));
     end;
@@ -304,9 +304,8 @@ Codeunit 50130 "FPFr Standard Library"
 
         Pattern := 'Z'; // UTC
         PatternPosition(String, Pattern, Position, MatchedString);
-        if Position = 1 then begin
+        if Position = 1 then
             FoundUtc := true;
-        end;
 
         if Position = 0 then begin
             Pattern := '-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})'; // Time Zone
@@ -405,7 +404,7 @@ Codeunit 50130 "FPFr Standard Library"
     begin
         // Convert a hex number to an integer.
         if StrLen(Hex) = 0 then
-            error('Expeted hex digit to be between 0 and F. Got an empty string.', Hex);
+            error('Expeted hex digit to be between 0 and F. Got an empty string.');
         if StrLen(Hex) > 16 then
             error('Hexadecimal number too big. Maximum 16 digits allowed. Got: %1, length %2.', Hex, StrLen(Hex));
         if StrLen(Hex) = 1 then

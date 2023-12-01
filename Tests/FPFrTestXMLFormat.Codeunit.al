@@ -1,4 +1,4 @@
-codeunit 50134 "FPFr XML Format"
+codeunit 50134 "FPFr Test XML Format"
 {
     Subtype = Test;
 
