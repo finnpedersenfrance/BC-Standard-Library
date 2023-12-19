@@ -20,7 +20,7 @@ codeunit 50136 "Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
-        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -59,7 +59,7 @@ codeunit 50136 "Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
-        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -79,7 +79,7 @@ codeunit 50136 "Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
-        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string

@@ -6,5 +6,7 @@
     ],
     "al.backgroundCodeAnalysis": "Project",
     "al.browser": "Edge",
-    "al.ruleSetPath": "./.vscode/AfterConversion.ruleset.json"
+    "al.ruleSetPath": "./.vscode/AfterConversion.ruleset.json",
+    "xml.validation.namespaces.enabled": "onNamespaceEncountered",
+    "xml.validation.schema.enabled": "onValidSchema"
 }

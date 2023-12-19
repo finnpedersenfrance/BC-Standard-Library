@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="da-DK" original="BC Standard Library">
+    <body>
+      <group id="body">
+        <trans-unit id="Codeunit 3132006006 - NamedType 562635058" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The error has not been thrown.</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType ErrorHasNotBeenThrownErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3132006006 - NamedType 525961915" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DB:NoFilter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType NoFilterTok</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3132006006 - NamedType 670840788" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DB:PrimRecordNotFound</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType PrimRecordNotFoundTok</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3132006006 - NamedType 74906461" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DB:RecordExists</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType RecordAlreadyExistsTok</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3132006006 - NamedType 1218333354" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DB:RecordNotFound</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType RecordNotFoundTok</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3132006006 - NamedType 4149171024" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DB:NothingInsideFilter</source>
+          <target state="needs-translation"/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Assert - NamedType RecordNothingInsideFilterTok</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

@@ -18,7 +18,7 @@ codeunit 50130 "Standard Library"
 
     procedure MakeDateFilter(StartingDate: Date; EndingDate: Date): Text
     var
-        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
     begin
         // No starting date means from the beginning of time and no ending date means till the end of time.
         if (StartingDate = 0D) and (EndingDate = 0D) then
@@ -155,21 +155,21 @@ codeunit 50130 "Standard Library"
 
     procedure RegexXOrMore(String: Text; Number: Integer) Pattern: Text
     var
-        RegexExpressionTxt: Label '%1{%2,}', Comment = '%1 = String, %2 = Number';
+        RegexExpressionTxt: Label '%1{%2,}', Comment = '%1 = String, %2 = Number', Locked = true;
     begin
         exit(StrSubstNo(RegexExpressionTxt, String, Number));
     end;
 
     procedure RegexExactly(String: Text; Number: Integer) Pattern: Text
     var
-        RegexExpressionTxt: Label '%1{%2}', Comment = '%1 = String, %2 = Number';
+        RegexExpressionTxt: Label '%1{%2}', Comment = '%1 = String, %2 = Number', Locked = true;
     begin
         exit(StrSubstNo(RegexExpressionTxt, String, Number));
     end;
 
     procedure RegexInterval(String: Text; Min: Integer; Max: Integer) Pattern: Text
     var
-        RegexExpressionTxt: Label '%1{%2,%3}', Comment = '%1 = String, %2 = Min, %3 = Max';
+        RegexExpressionTxt: Label '%1{%2,%3}', Comment = '%1 = String, %2 = Min, %3 = Max', Locked = true;
     begin
         exit(StrSubstNo(RegexExpressionTxt, String, Min, Max));
     end;
@@ -200,7 +200,7 @@ codeunit 50130 "Standard Library"
 
     procedure RegexPassiveGroup(String: Text) Pattern: Text
     var
-        RegexExpressionTxt: Label '?:%1', Comment = '%1 = String';
+        RegexExpressionTxt: Label '?:%1', Comment = '%1 = String', Locked = true;
     begin
         exit(RegexGroup(StrSubstNo(RegexExpressionTxt, String)));
     end;
@@ -413,12 +413,16 @@ codeunit 50130 "Standard Library"
 
 
     procedure Hex2Int(Hex: Text) Int: BigInteger
+    var
+        ExpetedHexDigitErr: Label 'Expeted hex digit to be between 0 and F. Got "%1"', Comment = '%1 = Hex';
+        GotEmptyStringErr: Label 'Expeted hex digit to be between 0 and F. Got an empty string.';
+        GotTooBigNumberErr: Label 'Hexadecimal number too big. Maximum 16 digits allowed. Got: %1, length %2.', Comment = '%1 = Hex, %2 = Length';
     begin
         // Convert a hex number to an integer.
         if StrLen(Hex) = 0 then
-            error('Expeted hex digit to be between 0 and F. Got an empty string.');
+            error(GotEmptyStringErr);
         if StrLen(Hex) > 16 then
-            error('Hexadecimal number too big. Maximum 16 digits allowed. Got: %1, length %2.', Hex, StrLen(Hex));
+            error(GotTooBigNumberErr, Hex, StrLen(Hex));
         if StrLen(Hex) = 1 then
             case UpperCase(Hex) of
                 '0' .. '9':
@@ -439,7 +443,7 @@ codeunit 50130 "Standard Library"
                 'F':
                     exit(15);
                 else
-                    error('Expeted hex digit to be between 0 and F. Got "%1"', Hex);
+                    error(ExpetedHexDigitErr, Hex);
             end;
 
         exit(Hex2Int(CopyStr(Hex, 1, StrLen(Hex) - 1)) * 16 + Hex2Int(CopyStr(Hex, StrLen(Hex), 1)));
@@ -468,10 +472,12 @@ codeunit 50130 "Standard Library"
     end;
 
     procedure Int2Hex(Int: BigInteger) Hex: Text
+    var
+        ExpectedPostiveNumberErr: Label 'Expeted number to be positive. Got "%1"', Comment = '%1 = Int';
     begin
         // Convert an integer to hexadecimal.
         if Int < 0 then
-            error('Expeted number to be positive. Got "%1"', Hex);
+            error(ExpectedPostiveNumberErr, Hex);
         if Int < 16 then
             case Int of
                 0 .. 9:
