@@ -1,12 +1,12 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50133 "FPFr Test Hex Int Conversion"
+codeunit 50133 "Test Hex Int Conversion"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Standard Library Assert";
+        FPFrStandardLibrary: Codeunit "Standard Library";
+        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin

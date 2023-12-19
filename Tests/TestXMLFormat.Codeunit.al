@@ -1,12 +1,12 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50134 "FPFr Test XML Format"
+codeunit 50134 "Test XML Format"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Standard Library Assert";
+        FPFrStandardLibrary: Codeunit "Standard Library";
+        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin

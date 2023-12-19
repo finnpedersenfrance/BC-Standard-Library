@@ -8,7 +8,7 @@
 /// </summary>
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50139 "Standard Library Assert"
+codeunit 50139 "Assert"
 {
 
     trigger OnRun()

@@ -1,12 +1,12 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50137 "FPFr Test Dmy Function"
+codeunit 50137 "Test Dmy Function"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Standard Library Assert";
+        FPFrStandardLibrary: Codeunit "Standard Library";
+        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin

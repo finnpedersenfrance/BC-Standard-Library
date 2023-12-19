@@ -159,7 +159,7 @@
         },
         {
             "id": "AA0072",
-            "action": "None",
+            "action": "Error",
             "justification": "The name of variables and parameters must be suffixed with the type or object name. BEST PRACTICES."
         },
         {
@@ -169,7 +169,7 @@
         },
         {
             "id": "AA0217",
-            "action": "None",
+            "action": "Error",
             "justification": "Use a text constant or label for format string in StrSubstNo. BEST PRACTICES."
         },
         {

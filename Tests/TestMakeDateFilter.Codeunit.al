@@ -1,12 +1,12 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50136 "FPFr Test Make Date Filter"
+codeunit 50136 "Test Make Date Filter"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Standard Library Assert";
+        FPFrStandardLibrary: Codeunit "Standard Library";
+        Assert: Codeunit "Assert";
 
 
     trigger OnRun()
@@ -20,6 +20,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -28,7 +29,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
         StartingDate := CalcDate('<-10D>', Today);
         EndingDate := CalcDate('<20D>', StartingDate);
-        ExpectedString := StrSubstNo('%1..%2', StartingDate, EndingDate);
+        ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, EndingDate);
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
@@ -58,6 +59,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -66,7 +68,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
         StartingDate := 0D;
         EndingDate := Today;
-        ExpectedString := StrSubstNo('..%1', EndingDate);
+        ExpectedString := StrSubstNo(DateFilterTxt, '', EndingDate);
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
@@ -77,6 +79,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
         StartingDate: Date;
         EndingDate: Date;
         ExpectedString: Text;
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -85,7 +88,7 @@ codeunit 50136 "FPFr Test Make Date Filter"
 
         StartingDate := Today;
         EndingDate := 0D;
-        ExpectedString := StrSubstNo('%1..', StartingDate);
+        ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, '');
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;

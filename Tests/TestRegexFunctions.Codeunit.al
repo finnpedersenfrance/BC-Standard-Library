@@ -1,12 +1,12 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50138 "FPFr Test Regex Functions"
+codeunit 50138 "Test Regex Functions"
 {
     Subtype = Test;
 
     var
-        FPFrStandardLibrary: Codeunit "FPFr Standard Library";
-        Assert: Codeunit "Standard Library Assert";
+        FPFrStandardLibrary: Codeunit "Standard Library";
+        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin

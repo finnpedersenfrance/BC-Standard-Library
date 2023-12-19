@@ -1,6 +1,6 @@
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50130 "FPFr Standard Library"
+codeunit 50130 "Standard Library"
 {
     trigger OnRun()
     begin
@@ -17,30 +17,32 @@ codeunit 50130 "FPFr Standard Library"
     end;
 
     procedure MakeDateFilter(StartingDate: Date; EndingDate: Date): Text
+    var
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date';
     begin
         // No starting date means from the beginning of time and no ending date means till the end of time.
         if (StartingDate = 0D) and (EndingDate = 0D) then
             exit('');
         if StartingDate = 0D then
-            exit(StrSubstNo('..%1', EndingDate));
+            exit(StrSubstNo(DateFilterTxt, '', EndingDate));
         if EndingDate = 0D then
-            exit(StrSubstNo('%1..', StartingDate));
-        exit(StrSubstNo('%1..%2', StartingDate, EndingDate));
+            exit(StrSubstNo(DateFilterTxt, StartingDate, ''));
+        exit(StrSubstNo(DateFilterTxt, StartingDate, EndingDate));
     end;
 
-    procedure XMLFormat(Value: Variant): Text
+    procedure XMLFormat(VariantValue: Variant): Text
     begin
-        if Value.IsDateTime then
-            exit(XMLFormatDateTime(Value))
+        if VariantValue.IsDateTime then
+            exit(XMLFormatDateTime(VariantValue))
         else
-            exit(Format(Value, 0, 9));
+            exit(Format(VariantValue, 0, 9));
     end;
 
-    procedure XMLFormatDateTime(Value: DateTime) Result: Text
+    procedure XMLFormatDateTime(DateTimeValue: DateTime) Result: Text
     begin
         // To avoid timezone conversion we do not use the option 9.
         // https://learn.microsoft.com/en-us/dynamics-nav/format-property
-        Result := Format(Value, 0, '<Year4>-<Month,2>-<Day,2>T<Hours24,2>:<Minutes,2>:<Seconds,2><Second dec>');
+        Result := Format(DateTimeValue, 0, '<Year4>-<Month,2>-<Day,2>T<Hours24,2>:<Minutes,2>:<Seconds,2><Second dec>');
     end;
 
     procedure RegexIsMatch(String: Text; Pattern: Text): Boolean
@@ -152,18 +154,24 @@ codeunit 50130 "FPFr Standard Library"
     end;
 
     procedure RegexXOrMore(String: Text; Number: Integer) Pattern: Text
+    var
+        RegexExpressionTxt: Label '%1{%2,}', Comment = '%1 = String, %2 = Number';
     begin
-        exit(StrSubstNo('%1{%2,}', String, Number));
+        exit(StrSubstNo(RegexExpressionTxt, String, Number));
     end;
 
     procedure RegexExactly(String: Text; Number: Integer) Pattern: Text
+    var
+        RegexExpressionTxt: Label '%1{%2}', Comment = '%1 = String, %2 = Number';
     begin
-        exit(StrSubstNo('%1{%2}', String, Number));
+        exit(StrSubstNo(RegexExpressionTxt, String, Number));
     end;
 
     procedure RegexInterval(String: Text; Min: Integer; Max: Integer) Pattern: Text
+    var
+        RegexExpressionTxt: Label '%1{%2,%3}', Comment = '%1 = String, %2 = Min, %3 = Max';
     begin
-        exit(StrSubstNo('%1{%2,%3}', String, Min, Max));
+        exit(StrSubstNo(RegexExpressionTxt, String, Min, Max));
     end;
 
     procedure RegexNegation(String: Text) Pattern: Text
@@ -191,8 +199,10 @@ codeunit 50130 "FPFr Standard Library"
     end;
 
     procedure RegexPassiveGroup(String: Text) Pattern: Text
+    var
+        RegexExpressionTxt: Label '?:%1', Comment = '%1 = String';
     begin
-        exit(RegexGroup(StrSubstNo('?:%1', String)));
+        exit(RegexGroup(StrSubstNo(RegexExpressionTxt, String)));
     end;
 
     procedure RegexDigit(): Text
