@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50130 "FPFr Standard Library"
 {
     trigger OnRun()
@@ -43,7 +45,7 @@ codeunit 50130 "FPFr Standard Library"
 
     procedure RegexIsMatch(String: Text; Pattern: Text): Boolean
     var
-        Regex: codeunit Regex;
+        Regex: codeunit System.Utilities.Regex;
     begin
         exit(Regex.IsMatch(String, Pattern, 0));
     end;

@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50138 "FPFr Test Regex Functions"
 {
     Subtype = Test;

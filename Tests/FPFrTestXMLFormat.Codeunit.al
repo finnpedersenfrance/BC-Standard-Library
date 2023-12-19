@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50134 "FPFr Test XML Format"
 {
     Subtype = Test;
@@ -118,7 +120,7 @@ codeunit 50134 "FPFr Test XML Format"
     [Test]
     procedure TestXMLFormatEnum()
     var
-        CustomerBlocked: Enum "Customer Blocked";
+        CustomerBlocked: Enum Microsoft.Sales.Customer."Customer Blocked";
     begin
         // [SCENARIO #009] Formating Enum
         // [GIVEN] a new Enum

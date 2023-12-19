@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50132 "FPFr Test Evaluate XML"
 {
     Subtype = Test;

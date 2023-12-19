@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50131 "FPFr Test Add Comment"
 {
     Subtype = Test;

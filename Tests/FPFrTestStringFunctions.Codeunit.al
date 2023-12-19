@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50135 "FPFr Test String Functions"
 {
     Subtype = Test;

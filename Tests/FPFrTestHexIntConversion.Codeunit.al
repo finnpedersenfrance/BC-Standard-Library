@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50133 "FPFr Test Hex Int Conversion"
 {
     Subtype = Test;

@@ -6,6 +6,8 @@
 /// <summary>
 /// This module provides functions for easy verification of expected values and error handling in test code.
 /// </summary>
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50139 "Standard Library Assert"
 {
 
@@ -321,7 +323,7 @@ codeunit 50139 "Standard Library Assert"
 
     local procedure TypeOf(ValueVariant: Variant): Integer
     var
-        "Field": Record "Field";
+        "Field": Record System.Reflection.Field;
     begin
         case true of
             ValueVariant.IsBoolean():
@@ -355,7 +357,7 @@ codeunit 50139 "Standard Library Assert"
 
     local procedure TypeNameOf(ValueVariant: Variant): Text
     var
-        "Field": Record "Field";
+        "Field": Record System.Reflection.Field;
     begin
         Field.Type := TypeOf(ValueVariant);
         exit(Format(Field.Type));

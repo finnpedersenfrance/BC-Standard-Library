@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50136 "FPFr Test Make Date Filter"
 {
     Subtype = Test;

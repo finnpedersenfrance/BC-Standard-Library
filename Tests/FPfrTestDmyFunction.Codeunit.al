@@ -1,3 +1,5 @@
+namespace FinnPedersenFrance.Tools.Library;
+
 codeunit 50137 "FPFr Test Dmy Function"
 {
     Subtype = Test;
