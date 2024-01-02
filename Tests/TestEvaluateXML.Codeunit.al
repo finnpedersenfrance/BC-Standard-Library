@@ -5,8 +5,8 @@ codeunit 50132 "Test Evaluate XML"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin
@@ -16,8 +16,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML1()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #001] Converting text with a simple valid datetime at midnight.
@@ -34,8 +34,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML2()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #002] Converting text with a simple valid date without time.
@@ -52,8 +52,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML3()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #003] Converting text with a simple valid date with a non zero time.
@@ -70,8 +70,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML4()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #004] Converting text with a wrong date should fail
@@ -88,8 +88,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML5()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #005] Converting a text without a date should fail
@@ -106,8 +106,8 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeFromXML6()
     var
-        FoundDate: DateTime;
         ExpectedDate: DateTime;
+        FoundDate: DateTime;
         DateTimeText: Text;
     begin
         // [SCENARIO #006] Evaluating an empty string should fail
@@ -272,12 +272,12 @@ codeunit 50132 "Test Evaluate XML"
     [Test]
     procedure TestEvaluateDateTimeZoneFromXML()
     var
-        FoundDate: Date;
-        FoundTime: Time;
-        FoundUtc: Boolean;
         FoundNegativeTimeZone: Boolean;
-        FoundZone: Time;
+        FoundUtc: Boolean;
+        FoundDate: Date;
         Iso8601: Text;
+        FoundTime: Time;
+        FoundZone: Time;
     begin
         // [SCENARIO #017] Evaluating correct Iso 8601 Date Time
         // [GIVEN] a  Iso 8601 Date Time string
@@ -345,6 +345,4 @@ codeunit 50132 "Test Evaluate XML"
         Assert.AreEqual(060000T, FoundZone, Iso8601);
         Assert.IsFalse(FoundNegativeTimeZone, 'Positive Time Zone: ' + Iso8601);
     end;
-
 }
-

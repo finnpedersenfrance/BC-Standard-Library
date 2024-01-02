@@ -5,8 +5,8 @@ codeunit 50137 "Test Dmy Function"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin
@@ -16,8 +16,8 @@ codeunit 50137 "Test Dmy Function"
     [Test]
     procedure TestTryDmy2Date1()
     var
-        FoundDate: Date;
         ExpectedDate: Date;
+        FoundDate: Date;
     begin
         // [SCENARIO #001] The try-function with catch the error
         // [GIVEN] February 29th in a non leap year
@@ -32,8 +32,8 @@ codeunit 50137 "Test Dmy Function"
     [Test]
     procedure TestTryDmy2Date2()
     var
-        FoundDate: Date;
         ExpectedDate: Date;
+        FoundDate: Date;
     begin
         // [SCENARIO #002] The try-function with catch the error
         // [GIVEN] February 29th in a leap year
@@ -70,8 +70,8 @@ codeunit 50137 "Test Dmy Function"
     [Test]
     procedure TestDmy2DateWithDefault()
     var
-        DefaultDate: Date;
         CalculatedDate: Date;
+        DefaultDate: Date;
 
     begin
         // [SCENARIO #005] Given a wrong date, will it return the default value.
@@ -115,5 +115,4 @@ codeunit 50137 "Test Dmy Function"
         Assert.IsTrue(FPFrStandardLibrary.TryCreateDateTime(DMY2Date(29, 2, 2020), 123456T, CalculatedDateTime), 'Expected TryCreateDateTime to succeed and return true.');
         Assert.AreEqual(ExpectedDateTime, CalculatedDateTime, 'Expected to evaluate a correct datetime.');
     end;
-
 }

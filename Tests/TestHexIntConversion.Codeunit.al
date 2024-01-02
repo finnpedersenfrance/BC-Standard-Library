@@ -5,8 +5,8 @@ codeunit 50133 "Test Hex Int Conversion"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin
@@ -80,8 +80,8 @@ codeunit 50133 "Test Hex Int Conversion"
     [Test]
     procedure TestRandomDouble05()
     var
-        Int: BigInteger;
         ExpectedInt: BigInteger;
+        Int: BigInteger;
         I: Integer;
     begin
         // [SCENARIO #005] Ensure that Int2Hex is the inverse function of Hex2Int.
@@ -100,9 +100,9 @@ codeunit 50133 "Test Hex Int Conversion"
     procedure TestRandomTrible06()
     var
         Int: BigInteger;
-        Hex: Text;
-        ExpectedHex: Text;
         I: Integer;
+        ExpectedHex: Text;
+        Hex: Text;
     begin
         // [SCENARIO #006] Ensure that Hex2Int is the inverse function of Int2Hex.
         // [GIVEN] 10.000 random hexadecimal numbers.
@@ -121,10 +121,10 @@ codeunit 50133 "Test Hex Int Conversion"
     procedure Test15hexdigits07()
     var
         Int: BigInteger;
-        Hex: Text;
-        ExpectedHex: Text;
         I: Integer;
         J: Integer;
+        ExpectedHex: Text;
+        Hex: Text;
     begin
         // [SCENARIO #007] Converting 16^i-1 to hexadecimal should result in i times 'F'.
         // [GIVEN] i in [1..15].
@@ -133,7 +133,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         for I := 1 to 15 do begin
             Int := 1;
-            for J := 1 to i do
+            for J := 1 to I do
                 Int := Int * 16;
             Int := Int - 1;
             Hex := FPFrStandardLibrary.Int2Hex(Int);
@@ -146,8 +146,8 @@ codeunit 50133 "Test Hex Int Conversion"
     procedure TestMaxBigInteger08()
     var
         Int: BigInteger;
-        Hex: Text;
         ExpectedHex: Text;
+        Hex: Text;
     begin
         // [SCENARIO #008] Converting a really big number.
         // [GIVEN] 9223372036854775807L natural number and maximum value for a 64-bit signed integer 2^63-1
@@ -208,8 +208,8 @@ codeunit 50133 "Test Hex Int Conversion"
     [Test]
     procedure TestInt2HexWithDefaultPositive1()
     var
-        Hex: Text;
         DefaultHexValue: Text;
+        Hex: Text;
     begin
         // [SCENARIO #011] Attempting to convert a negative integer, with a default value.
         // [GIVEN] -1 and a valid hex value
@@ -224,8 +224,8 @@ codeunit 50133 "Test Hex Int Conversion"
     [Test]
     procedure TestInt2HexWithDefaultNegative1()
     var
-        Hex: Text;
         DefaultHexValue: Text;
+        Hex: Text;
     begin
         // [SCENARIO #012] Attempting to convert a negative integer, with a non hex default value.
         // [GIVEN] -1 and a invalide hex value
@@ -257,8 +257,8 @@ codeunit 50133 "Test Hex Int Conversion"
     [Test]
     procedure TestHex2IntWithDefaultPositive1()
     var
-        Int: Integer;
         DefaultIntValue: Integer;
+        Int: Integer;
     begin
         // [SCENARIO #014] Attempting to convert a non hex string, with a default value.
         // [GIVEN] non hex value and an integer
@@ -273,8 +273,8 @@ codeunit 50133 "Test Hex Int Conversion"
     [Test]
     procedure TestHex2IntWithDefaultNegative1()
     var
-        Int: Integer;
         DefaultIntValue: Integer;
+        Int: Integer;
     begin
         // [SCENARIO #015] Attempting to convert a non hex string, with a default value.
         // [GIVEN] non hex value and a negative integer
@@ -315,5 +315,4 @@ codeunit 50133 "Test Hex Int Conversion"
         Hex := PadStr('', 17, 'F');
         Assert.IsFalse(FPFrStandardLibrary.TryHex2Int(Hex, Int), 'Converting a 17 character hex string should fail.');
     end;
-
 }

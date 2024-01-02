@@ -5,9 +5,8 @@ codeunit 50131 "Test Add Comment"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
-
 
     trigger OnRun()
     begin
@@ -104,8 +103,8 @@ codeunit 50131 "Test Add Comment"
     procedure TestAddComment6()
     var
         Comment: Text;
-        OriginalComment: Text;
         ExpectedComment: Text;
+        OriginalComment: Text;
     begin
         // [SCENARIO #006] Adding a new comment to a list of comments
         // [GIVEN] An orignal list of comments
@@ -118,5 +117,4 @@ codeunit 50131 "Test Add Comment"
         AddComment(Comment, 'OK5');
         Assert.AreEqual(ExpectedComment, Comment, 'Adding a new unique comment should change the string.')
     end;
-
 }

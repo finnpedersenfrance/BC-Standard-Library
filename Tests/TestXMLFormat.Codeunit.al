@@ -5,8 +5,8 @@ codeunit 50134 "Test XML Format"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin
@@ -129,5 +129,4 @@ codeunit 50134 "Test XML Format"
 
         Assert.AreEqual('2', FPFrStandardLibrary.XMLFormat(CustomerBlocked::Invoice), '');
     end;
-
 }

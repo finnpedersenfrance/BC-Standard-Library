@@ -8,39 +8,36 @@
 /// </summary>
 namespace FinnPedersenFrance.Tools.Library;
 
-codeunit 50139 "Assert"
+codeunit 50139 Assert
 {
 
-    trigger OnRun()
-    begin
-    end;
 
     var
-        IsTrueFailedErr: Label 'Assert.IsTrue failed. %1', Locked = true;
-        IsFalseFailedErr: Label 'Assert.IsFalse failed. %1', Locked = true;
         AreEqualFailedErr: Label 'Assert.AreEqual failed. Expected:<%1> (%2). Actual:<%3> (%4). %5.', Locked = true;
-        AreNotEqualFailedErr: Label 'Assert.AreNotEqual failed. Expected any value except:<%1> (%2). Actual:<%3> (%4). %5.', Locked = true;
         AreNearlyEqualFailedErr: Label 'Assert.AreNearlyEqual failed. Expected a difference no greater than <%1> between expected value <%2> and actual value <%3>. %4', Locked = true;
+        AreNotEqualFailedErr: Label 'Assert.AreNotEqual failed. Expected any value except:<%1> (%2). Actual:<%3> (%4). %5.', Locked = true;
         AreNotNearlyEqualFailedErr: Label 'Assert.AreNotNearlyEqual failed. Expected a difference greater than <%1> between expected value <%2> and actual value <%3>. %4', Locked = true;
+        AssertErr: Label 'Expected error %1 actual %2', Locked = true;
+        DictionaryDifferentSizeErr: Label 'Sizes of dictionaries do not match. Expected: %1, Actual: %2.', Locked = true;
+        DifferentKeyValueErr: Label 'Values for key %1 do not match. Expected: %2. Actual: %3.', Locked = true;
+        ErrorHasNotBeenThrownErr: Label 'The error has not been thrown.', Locked = true;
+        ExpectedErrorCodeFailedErr: Label 'Assert.ExpectedErrorCode failed. Expected: %1. Actual: %2. Actual error message: %3.', Locked = true;
+        ExpectedErrorFailedErr: Label 'Assert.ExpectedError failed. Expected: %1. Actual: %2.', Locked = true;
+        ExpectedMessageFailedErr: Label 'Assert.ExpectedMessage failed. Expected: %1. Actual: %2.', Locked = true;
         FailFailedErr: Label 'Assert.Fail failed. %1', Locked = true;
+        IsFalseFailedErr: Label 'Assert.IsFalse failed. %1', Locked = true;
+        IsTrueFailedErr: Label 'Assert.IsTrue failed. %1', Locked = true;
+        KnownFailureErr: Label 'Known failure: see VSTF Bug #%1.', Locked = true;
+        MissingKeyErr: Label 'Key %1 is missing from the actual dictionary.', Locked = true;
+        NoFilterTok: Label 'DB:NoFilter', Locked = true;
+        PrimRecordNotFoundTok: Label 'DB:PrimRecordNotFound', Locked = true;
+        RecordAlreadyExistsTok: Label 'DB:RecordExists', Locked = true;
+        RecordCountErr: Label 'Assert.RecordCount failed. Expected number of %1 entries: %2. Actual: %3.', Locked = true;
+        RecordNotFoundTok: Label 'DB:RecordNotFound', Locked = true;
+        RecordNothingInsideFilterTok: Label 'DB:NothingInsideFilter', Locked = true;
         TableIsEmptyErr: Label 'Assert.TableIsEmpty failed. Table <%1> with filter <%2> must not contain records.', Locked = true;
         TableIsNotEmptyErr: Label 'Assert.TableIsNotEmpty failed. Table <%1> with filter <%2> must contain records.', Locked = true;
-        KnownFailureErr: Label 'Known failure: see VSTF Bug #%1.', Locked = true;
-        ExpectedErrorFailedErr: Label 'Assert.ExpectedError failed. Expected: %1. Actual: %2.', Locked = true;
-        ExpectedErrorCodeFailedErr: Label 'Assert.ExpectedErrorCode failed. Expected: %1. Actual: %2. Actual error message: %3.', Locked = true;
-        ExpectedMessageFailedErr: Label 'Assert.ExpectedMessage failed. Expected: %1. Actual: %2.', Locked = true;
-        RecordCountErr: Label 'Assert.RecordCount failed. Expected number of %1 entries: %2. Actual: %3.', Locked = true;
         UnsupportedTypeErr: Label 'Equality assertions only support Boolean, Option, Integer, BigInteger, Decimal, Code, Text, Date, DateFormula, Time, Duration, and DateTime values. Current value:%1.', Locked = true;
-        RecordNotFoundTok: Label 'DB:RecordNotFound', Locked = true;
-        RecordAlreadyExistsTok: Label 'DB:RecordExists', Locked = true;
-        RecordNothingInsideFilterTok: Label 'DB:NothingInsideFilter', Locked = true;
-        AssertErr: Label 'Expected error %1 actual %2', Locked = true;
-        PrimRecordNotFoundTok: Label 'DB:PrimRecordNotFound', Locked = true;
-        NoFilterTok: Label 'DB:NoFilter', Locked = true;
-        ErrorHasNotBeenThrownErr: Label 'The error has not been thrown.', Locked = true;
-        DictionaryDifferentSizeErr: Label 'Sizes of dictionaries do not match. Expected: %1, Actual: %2.', Locked = true;
-        MissingKeyErr: Label 'Key %1 is missing from the actual dictionary.', Locked = true;
-        DifferentKeyValueErr: Label 'Values for key %1 do not match. Expected: %2. Actual: %3.', Locked = true;
 
     /// <summary>
     /// Tests whether the specified condition is true and throws an exception if the condition is false.
@@ -83,9 +80,9 @@ codeunit 50139 "Assert"
     /// <param name="Actual">The second dictionary to compare.</param>
     procedure AreEqual(Expected: Dictionary of [Text, Text]; Actual: Dictionary of [Text, Text])
     var
-        "Key": Text;
-        ExpectedValue: Text;
         ActualValue: Text;
+        ExpectedValue: Text;
+        "Key": Text;
     begin
         if Expected.Count() <> Actual.Count() then
             Error(DictionaryDifferentSizeErr, Expected.Count(), Actual.Count());
@@ -253,7 +250,7 @@ codeunit 50139 "Assert"
     procedure ExpectedError(Expected: Text)
     begin
         if (GetLastErrorText() = '') and (Expected = '') then begin
-            if GetLastErrorCallstack() = '' then
+            if GetLastErrorCallStack() = '' then
                 Error(ErrorHasNotBeenThrownErr);
         end else
             if StrPos(GetLastErrorText(), Expected) = 0 then
@@ -408,4 +405,3 @@ codeunit 50139 "Assert"
         ClearLastError();
     end;
 }
-

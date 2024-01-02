@@ -191,6 +191,16 @@
             "id": "AS0011",
             "action": "Error",
             "justification": "AppSourceCop Error. An affix is required. INVESTIGATE IF NEEDED IN YOUR PROJECT."
+        },
+        {
+            "id": "AA0221",
+            "action": "Error",
+            "justification": "You must specify a OptionCaption property for all fields which source expressions is not a table field."
+        },
+        {
+            "id": "AL0604",
+            "action": "Error",
+            "justification": "Use of implicit 'with' will be removed in the future. Qualify with '{0}'."
         }
     ]
 }

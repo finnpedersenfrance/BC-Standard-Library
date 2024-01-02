@@ -2,9 +2,7 @@ namespace FinnPedersenFrance.Tools.Library;
 
 codeunit 50130 "Standard Library"
 {
-    trigger OnRun()
-    begin
-    end;
+
 
     procedure RemoveChar(String: Text; Which: Text): Text
     begin
@@ -47,7 +45,7 @@ codeunit 50130 "Standard Library"
 
     procedure RegexIsMatch(String: Text; Pattern: Text): Boolean
     var
-        Regex: codeunit System.Utilities.Regex;
+        Regex: Codeunit System.Utilities.Regex;
     begin
         exit(Regex.IsMatch(String, Pattern, 0));
     end;
@@ -59,13 +57,12 @@ codeunit 50130 "Standard Library"
 
     procedure IsCharacterString(String: Text): Boolean
     begin
-        exit(strlen(String) = 1);
+        exit(StrLen(String) = 1);
     end;
-
 
     procedure RegexIsCharacterString(String: Text): Boolean
     begin
-        case strlen(String) of
+        case StrLen(String) of
             1:
                 exit(true);
             2:
@@ -252,10 +249,10 @@ codeunit 50130 "Standard Library"
 
     procedure EvaluateDateTimeFromXML(var FoundDateTime: DateTime; Iso8601: Text): Boolean
     var
+        FoundNegativeTimeZone: Boolean;
+        FoundUtc: Boolean;
         FoundDate: Date;
         FoundTime: Time;
-        FoundUtc: Boolean;
-        FoundNegativeTimeZone: Boolean;
         FoundZone: Time;
     begin
         // exit(Evaluate(FoundDateTime, Iso8601, 9)); This causes a timezone difference and depends on where the server is.
@@ -266,18 +263,18 @@ codeunit 50130 "Standard Library"
 
     procedure EvaluateDateTimeZoneFromXML(var FoundDate: Date; var FoundTime: Time; var FoundUtc: Boolean; var FoundNegativeTimeZone: Boolean; var FoundZone: Time; Iso8601: Text) Found: Boolean
     var
-        Pattern: Text;
-        String: Text;
-        Position: Integer;
-        MatchedString: Text;
-        Year: Integer;
-        Month: Integer;
+        Seconds: Decimal;
         Day: Integer;
         Hours: Integer;
         Minutes: Integer;
-        Seconds: Decimal;
+        Month: Integer;
+        Position: Integer;
+        Year: Integer;
         ZoneHours: Integer;
         ZoneMinutes: Integer;
+        MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         FoundDate := 0D;
         FoundTime := 000000T;
@@ -389,7 +386,7 @@ codeunit 50130 "Standard Library"
     [TryFunction]
     procedure TryDmy2Date(Day: Integer; Month: Integer; Year: Integer; var NewDate: Date)
     begin
-        NewDate := Dmy2date(Day, Month, Year);
+        NewDate := DMY2Date(Day, Month, Year);
     end;
 
     [TryFunction]
@@ -411,7 +408,6 @@ codeunit 50130 "Standard Library"
             NewDate := DefaultDate;
     end;
 
-
     procedure Hex2Int(Hex: Text) Int: BigInteger
     var
         ExpetedHexDigitErr: Label 'Expeted hex digit to be between 0 and F. Got "%1"', Comment = '%1 = Hex';
@@ -420,9 +416,9 @@ codeunit 50130 "Standard Library"
     begin
         // Convert a hex number to an integer.
         if StrLen(Hex) = 0 then
-            error(GotEmptyStringErr);
+            Error(GotEmptyStringErr);
         if StrLen(Hex) > 16 then
-            error(GotTooBigNumberErr, Hex, StrLen(Hex));
+            Error(GotTooBigNumberErr, Hex, StrLen(Hex));
         if StrLen(Hex) = 1 then
             case UpperCase(Hex) of
                 '0' .. '9':
@@ -443,7 +439,7 @@ codeunit 50130 "Standard Library"
                 'F':
                     exit(15);
                 else
-                    error(ExpetedHexDigitErr, Hex);
+                    Error(ExpetedHexDigitErr, Hex);
             end;
 
         exit(Hex2Int(CopyStr(Hex, 1, StrLen(Hex) - 1)) * 16 + Hex2Int(CopyStr(Hex, StrLen(Hex), 1)));
@@ -477,7 +473,7 @@ codeunit 50130 "Standard Library"
     begin
         // Convert an integer to hexadecimal.
         if Int < 0 then
-            error(ExpectedPostiveNumberErr, Hex);
+            Error(ExpectedPostiveNumberErr, Hex);
         if Int < 16 then
             case Int of
                 0 .. 9:
@@ -513,6 +509,4 @@ codeunit 50130 "Standard Library"
             else
                 Result := '0';
     end;
-
 }
-
