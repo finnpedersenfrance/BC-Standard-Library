@@ -5,8 +5,8 @@ codeunit 50138 "Test Regex Functions"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     trigger OnRun()
     begin
@@ -147,7 +147,6 @@ codeunit 50138 "Test Regex Functions"
         Assert.AreEqual('', FPFrStandardLibrary.RegexDisjunction2('', ''), '');
     end;
 
-
     [Test]
     procedure TestRegexDisjunction3()
     begin
@@ -227,7 +226,6 @@ codeunit 50138 "Test Regex Functions"
         // [GIVEN] Given a character
         // [WHEN] creating the pattern
         // [THEN] it returns the character followed by an asterisk
-
 
         Assert.AreEqual('x*', FPFrStandardLibrary.RegexZeroOrMore('x'), '');
     end;
@@ -352,7 +350,6 @@ codeunit 50138 "Test Regex Functions"
         Assert.AreEqual('xxx$', FPFrStandardLibrary.RegexEndLine('xxx'), '');
     end;
 
-
     [Test]
     procedure TestRegexIsMatch()
     var
@@ -400,10 +397,10 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestPatternPositionTime()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -420,10 +417,10 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestPatternPositionTimeZonePlus()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -440,10 +437,10 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestPatternPositionTimeZoneMinus()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -457,14 +454,13 @@ codeunit 50138 "Test Regex Functions"
         Assert.AreEqual('-06:00', MatchedString, '');
     end;
 
-
     [Test]
     procedure TestPatternPositionDate()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -481,10 +477,10 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestPatternPositionEmptyString()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -501,10 +497,10 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestPatternPositionEmptyPattern()
     var
-        String: Text;
-        Pattern: Text;
         Position: Integer;
         MatchedString: Text;
+        Pattern: Text;
+        String: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -560,7 +556,6 @@ codeunit 50138 "Test Regex Functions"
         Assert.AreEqual('\.', FPFrStandardLibrary.RegexDecimalPoint(), '');
     end;
 
-
     [Test]
     procedure TestRegexAnyChar()
     begin
@@ -576,11 +571,11 @@ codeunit 50138 "Test Regex Functions"
     procedure TestPatternBuilding()
     var
         DatePattern: Text;
-        TimePattern: Text;
-        FractionPattern: Text;
-        ZonePattern: Text;
-        Pattern: Text;
         ExpectedPattern: Text;
+        FractionPattern: Text;
+        Pattern: Text;
+        TimePattern: Text;
+        ZonePattern: Text;
     begin
         // [SCENARIO #001] Finding a pattern in a string and bringing back the position and the substring matching the pattern
         // [GIVEN] Given correct iso 8601 datetime string
@@ -599,11 +594,11 @@ codeunit 50138 "Test Regex Functions"
         FractionPattern := FPFrStandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
 
         ZonePattern := FPFrStandardLibrary.RegexGroup(
-            FPFrStandardLibrary.RegexOptional(
-                FPFrStandardLibrary.RegexDisjunction3(
-                    '-' + DigitGroup(2) + ':' + DigitGroup(2),
-                    FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
-                    'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
+                    FPFrStandardLibrary.RegexOptional(
+                        FPFrStandardLibrary.RegexDisjunction3(
+                            '-' + DigitGroup(2) + ':' + DigitGroup(2),
+                            FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
+                            'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
 
         TimePattern := TimePattern + FractionPattern;
         TimePattern := FPFrStandardLibrary.RegexOptional(TimePattern);
@@ -618,8 +613,8 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestXmlDateTimeRegex()
     var
-        Pattern: Text;
         isValidDateTime: Boolean;
+        Pattern: Text;
     begin
         Pattern := '^((\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|([+-])(\d{2}):(\d{2})))$';
         Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
@@ -652,5 +647,4 @@ codeunit 50138 "Test Regex Functions"
         isValidDateTime := FPFrStandardLibrary.RegexIsMatch('', Pattern);
         Assert.IsFalse(isValidDateTime, 'Empty string was marked as valid XML datetime string.');
     end;
-
 }

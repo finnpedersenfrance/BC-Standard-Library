@@ -5,8 +5,8 @@ codeunit 50135 "Test String Functions"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
 
     [Test]
     procedure TestRemoveChar()
@@ -29,5 +29,4 @@ codeunit 50135 "Test String Functions"
 
         Assert.AreEqual('tatDate', FPFrStandardLibrary.KeepChar('StartingDate', 'Date'), '');
     end;
-
 }

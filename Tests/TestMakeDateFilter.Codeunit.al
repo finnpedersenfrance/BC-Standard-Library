@@ -5,9 +5,8 @@ codeunit 50136 "Test Make Date Filter"
     Subtype = Test;
 
     var
+        Assert: Codeunit Assert;
         FPFrStandardLibrary: Codeunit "Standard Library";
-        Assert: Codeunit "Assert";
-
 
     trigger OnRun()
     begin
@@ -17,10 +16,10 @@ codeunit 50136 "Test Make Date Filter"
     [Test]
     procedure TestDateFilterNormal()
     var
-        StartingDate: Date;
         EndingDate: Date;
-        ExpectedString: Text;
+        StartingDate: Date;
         DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
+        ExpectedString: Text;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -37,8 +36,8 @@ codeunit 50136 "Test Make Date Filter"
     [Test]
     procedure TestDateFilterNoDates()
     var
-        StartingDate: Date;
         EndingDate: Date;
+        StartingDate: Date;
         ExpectedString: Text;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
@@ -56,10 +55,10 @@ codeunit 50136 "Test Make Date Filter"
     [Test]
     procedure TestDateFilterFromBeginningOfTime()
     var
-        StartingDate: Date;
         EndingDate: Date;
-        ExpectedString: Text;
+        StartingDate: Date;
         DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
+        ExpectedString: Text;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -76,10 +75,10 @@ codeunit 50136 "Test Make Date Filter"
     [Test]
     procedure TestDateFilterTillEndOfTime()
     var
-        StartingDate: Date;
         EndingDate: Date;
-        ExpectedString: Text;
+        StartingDate: Date;
         DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
+        ExpectedString: Text;
     begin
         // [SCENARIO #001] Testing the starting scenario with an empty string.
         // [GIVEN] An empty string
@@ -92,6 +91,4 @@ codeunit 50136 "Test Make Date Filter"
 
         Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
-
-
 }
