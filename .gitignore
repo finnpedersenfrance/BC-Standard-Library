@@ -1,14 +1,22 @@
-## --- AL gitignore ---
-## Ignores generated binary files and 
-## temporary files from Visual Studio and Visual Studio code
-
-# Binary files
-.alpackages/
 *.app
-
-# Temp files
-.vs/
+*.flf
+*.bclicense
+*.g.xlf
+.DS_Store
+Thumbs.db
+TestResults*.xml
+bcptTestResults*.json
+BuildOutput.txt
+rad.json
+**/rad.json
+.output/
+.dependencies/
+.buildartifacts/
+.alpackages/
+.packages/
 .alcache/
-# Others
+.altemplates/
+.snapshots/
+cache_*
 ~$*
 *~
