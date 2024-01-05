@@ -1,0 +1,31 @@
+{
+    "name": "Ignore.Companial.CodeCop",
+    "description": "Suppressing some Companial.CodeCop rules.",
+    "rules": [
+        {
+            "id": "CM0002",
+            "action": "None",
+            "justification": "Locked Label must have a suffix Tok."
+        },
+        {
+            "id": "CM0012",
+            "action": "None",
+            "justification": "Procedure must be either local or internal."
+        },
+        {
+            "id": "CM0017",
+            "action": "None",
+            "justification": "Object should not have empty sections. Test functions are allowed to have empty sections."
+        },
+        {
+            "id": "CM0018",
+            "action": "None",
+            "justification": "Objects need to have the Access/Extensible properties defined."
+        },
+        {
+            "id": "CM0023",
+            "action": "None",
+            "justification": "The identifier must have at least one of the mandatory affixes."
+        }
+    ]
+}

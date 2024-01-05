@@ -410,7 +410,7 @@ codeunit 50130 "Standard Library"
 
     procedure Hex2Int(Hex: Text) Int: BigInteger
     var
-        ExpetedHexDigitErr: Label 'Expeted hex digit to be between 0 and F. Got "%1"', Comment = '%1 = Hex';
+        ExpetedHexDigitErr: Label 'Expeted hex digit to be between 0 and F. Got "%1".', Comment = '%1 = Hex';
         GotEmptyStringErr: Label 'Expeted hex digit to be between 0 and F. Got an empty string.';
         GotTooBigNumberErr: Label 'Hexadecimal number too big. Maximum 16 digits allowed. Got: %1, length %2.', Comment = '%1 = Hex, %2 = Length';
     begin
@@ -469,7 +469,7 @@ codeunit 50130 "Standard Library"
 
     procedure Int2Hex(Int: BigInteger) Hex: Text
     var
-        ExpectedPostiveNumberErr: Label 'Expeted number to be positive. Got "%1"', Comment = '%1 = Int';
+        ExpectedPostiveNumberErr: Label 'Expeted number to be positive. Got "%1".', Comment = '%1 = Int';
     begin
         // Convert an integer to hexadecimal.
         if Int < 0 then

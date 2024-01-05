@@ -6,7 +6,9 @@
 /// <summary>
 /// This module provides functions for easy verification of expected values and error handling in test code.
 /// </summary>
+
 namespace FinnPedersenFrance.Tools.Library;
+#pragma warning disable CM0015
 
 codeunit 50139 Assert
 {

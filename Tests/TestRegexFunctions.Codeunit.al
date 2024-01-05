@@ -562,7 +562,7 @@ codeunit 50138 "Test Regex Functions"
         Assert.AreEqual('.', FPFrStandardLibrary.RegexAnyChar(), '');
     end;
 
-    procedure DigitGroup(Number: Integer) Pattern: Text;
+    procedure DigitGroup(Number: Integer) Pattern: Text
     begin
         Pattern := FPFrStandardLibrary.RegexGroup(FPFrStandardLibrary.RegexExactly(FPFrStandardLibrary.RegexDigit(), Number));
     end;
@@ -594,11 +594,11 @@ codeunit 50138 "Test Regex Functions"
         FractionPattern := FPFrStandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
 
         ZonePattern := FPFrStandardLibrary.RegexGroup(
-                    FPFrStandardLibrary.RegexOptional(
-                        FPFrStandardLibrary.RegexDisjunction3(
-                            '-' + DigitGroup(2) + ':' + DigitGroup(2),
-                            FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
-                            'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
+                            FPFrStandardLibrary.RegexOptional(
+                                FPFrStandardLibrary.RegexDisjunction3(
+                                    '-' + DigitGroup(2) + ':' + DigitGroup(2),
+                                    FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
+                                    'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
 
         TimePattern := TimePattern + FractionPattern;
         TimePattern := FPFrStandardLibrary.RegexOptional(TimePattern);
