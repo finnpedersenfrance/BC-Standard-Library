@@ -4,7 +4,7 @@
     <body>
       <group id="body">
         <trans-unit id="Codeunit 2199890696 - Method 3264489296 - NamedType 2113445142" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Expeted hex digit to be between 0 and F. Got "%1"</source>
+          <source>Expeted hex digit to be between 0 and F. Got "%1".</source>
           <note from="Developer" annotates="general" priority="2">%1 = Hex</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Standard Library - Method Hex2Int - NamedType ExpetedHexDigitErr</note>
         </trans-unit>
@@ -19,7 +19,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Standard Library - Method Hex2Int - NamedType GotTooBigNumberErr</note>
         </trans-unit>
         <trans-unit id="Codeunit 2199890696 - Method 733061744 - NamedType 1247483766" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Expeted number to be positive. Got "%1"</source>
+          <source>Expeted number to be positive. Got "%1".</source>
           <note from="Developer" annotates="general" priority="2">%1 = Int</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Standard Library - Method Int2Hex - NamedType ExpectedPostiveNumberErr</note>
         </trans-unit>

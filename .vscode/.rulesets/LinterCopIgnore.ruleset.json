@@ -1,0 +1,21 @@
+{
+    "name": "Ignore.BusinessCentral.LinterCop",
+    "description": "Suppressing some BusinessCentral.LinterCop rules.",
+    "rules": [
+        {
+            "id": "LC0047",
+            "action": "None",
+            "justification": "Locked Label must have a suffix Tok."
+        },
+        {
+            "id": "LC0025",
+            "action": "None",
+            "justification": "Procedure must be either local, internal or define a documentation comment."
+        },
+        {
+            "id": "LC0010",
+            "action": "None",
+            "justification": "Cyclomatic Complexity."
+        }
+    ]
+}

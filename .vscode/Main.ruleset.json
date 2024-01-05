@@ -1,0 +1,18 @@
+{
+    "name": "Personal Project ruleset",
+    "description": "A list of project specific rules",
+    "includedRuleSets": [
+        {
+            "action": "Default",
+            "path": ".rulesets/AfterConversion.ruleset.json"
+        },
+        {
+            "action": "Default",
+            "path": ".rulesets/LinterCopIgnore.ruleset.json"
+        },
+        {
+            "action": "Default",
+            "path": ".rulesets/CompanialCopIgnore.ruleset.json"
+        }
+    ]
+}
