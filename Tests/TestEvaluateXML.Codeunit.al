@@ -6,7 +6,7 @@ codeunit 50132 "Test Evaluate XML"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -27,7 +27,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := '2019-05-07T00:00:00+01:00';
         ExpectedDate := CreateDateTime(20190507D, 000000T);
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
@@ -45,7 +45,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := '2019-05-07Z';
         ExpectedDate := CreateDateTime(20190507D, 000000T);
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
@@ -63,7 +63,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := '2019-02-28T12:34:56Z';
         ExpectedDate := CreateDateTime(20190228D, 123456T);
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to evaluate a date.');
         Assert.AreEqual(ExpectedDate, FoundDate, '');
     end;
 
@@ -81,7 +81,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := '2019-02-29T12:34:56';
         ExpectedDate := 0DT;
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
@@ -99,7 +99,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := 'YYYY-MM-DDT12:34:56';
         ExpectedDate := 0DT;
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
@@ -117,7 +117,7 @@ codeunit 50132 "Test Evaluate XML"
 
         DateTimeText := '';
         ExpectedDate := 0DT;
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), '');
+        Assert.IsFalse(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), '');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
@@ -131,7 +131,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get true
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'true'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'true'), 'Expected to succeed.');
         Assert.IsTrue(FoundBoolean, '');
     end;
 
@@ -145,7 +145,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get true
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, '1'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, '1'), 'Expected to succeed.');
         Assert.IsTrue(FoundBoolean, '');
     end;
 
@@ -159,7 +159,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get true
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'false'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'false'), 'Expected to succeed.');
         Assert.IsFalse(FoundBoolean, '');
     end;
 
@@ -173,7 +173,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get true
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, '0'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, '0'), 'Expected to succeed.');
         Assert.IsFalse(FoundBoolean, '');
     end;
 
@@ -187,7 +187,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We should not get a date
 
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, ''), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, ''), 'Expected to fail.');
         Assert.IsFalse(FoundBoolean, '');
     end;
 
@@ -201,7 +201,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We should not get a date
 
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'nonsens'), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateBooleanFromXML(FoundBoolean, 'nonsens'), 'Expected to fail.');
         Assert.IsFalse(FoundBoolean, '');
     end;
 
@@ -215,7 +215,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get 7
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateIntegerFromXML(FoundInteger, '7'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateIntegerFromXML(FoundInteger, '7'), 'Expected to succeed.');
         Assert.AreEqual(7, FoundInteger, '');
     end;
 
@@ -229,7 +229,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get false and 0
 
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateIntegerFromXML(FoundInteger, 'nonsens'), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateIntegerFromXML(FoundInteger, 'nonsens'), 'Expected to fail.');
         Assert.AreEqual(0, FoundInteger, '');
     end;
 
@@ -243,7 +243,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get a value close to pi
 
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDecimalFromXML(FoundDecimal, '3.1415926535897932'), 'Expected to succeed.');
+        Assert.IsTrue(StandardLibrary.EvaluateDecimalFromXML(FoundDecimal, '3.1415926535897932'), 'Expected to succeed.');
         Assert.AreEqual(3.1415926535897932, FoundDecimal, 'Did we find pi?');
     end;
 
@@ -257,7 +257,7 @@ codeunit 50132 "Test Evaluate XML"
         // [WHEN] Evaluating it
         // [THEN] We get false and 0
 
-        Assert.IsFalse(FPFrStandardLibrary.EvaluateDecimalFromXML(FoundDecimal, 'nonsens'), 'Expected to fail.');
+        Assert.IsFalse(StandardLibrary.EvaluateDecimalFromXML(FoundDecimal, 'nonsens'), 'Expected to fail.');
         Assert.AreEqual(0.0, FoundDecimal, '');
     end;
 
@@ -285,61 +285,61 @@ codeunit 50132 "Test Evaluate XML"
         // [THEN] We get expected Date, Time, and Time Zone / UTC marker
 
         Iso8601 := '2002-09-24';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), '');
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), '');
         Assert.AreEqual(20020924D, FoundDate, Iso8601);
 
         Iso8601 := '2002-09-24Z';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020924D, FoundDate, Iso8601);
         Assert.IsTrue(FoundUtc, 'UTC detected.: ' + Iso8601);
 
         Iso8601 := '2002-09-24-06:00';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020924D, FoundDate, Iso8601);
         Assert.AreEqual(060000T, FoundZone, Iso8601);
         Assert.IsTrue(FoundNegativeTimeZone, 'Negative Time Zone: ' + Iso8601);
 
         Iso8601 := '2002-09-24+06:00';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020924D, FoundDate, Iso8601);
         Assert.AreEqual(060000T, FoundZone, Iso8601);
         Assert.IsFalse(FoundNegativeTimeZone, 'Positive Time Zone: ' + Iso8601);
 
         Iso8601 := '2002-05-30T09:00:00';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(090000T, FoundTime, Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10.5';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010.5T, FoundTime, Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10.56';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010.56T, FoundTime, Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10.567';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010.567T, FoundTime, Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10Z';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010T, FoundTime, Iso8601);
         Assert.IsTrue(FoundUtc, 'UTC detected: ' + Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10-06:00';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010T, FoundTime, Iso8601);
         Assert.AreEqual(060000T, FoundZone, Iso8601);
         Assert.IsTrue(FoundNegativeTimeZone, 'Negative Time Zone: ' + Iso8601);
 
         Iso8601 := '2002-05-30T09:30:10+06:00';
-        Assert.IsTrue(FPFrStandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
+        Assert.IsTrue(StandardLibrary.EvaluateDateTimeZoneFromXML(FoundDate, FoundTime, FoundUtc, FoundNegativeTimeZone, FoundZone, Iso8601), Iso8601);
         Assert.AreEqual(20020530D, FoundDate, Iso8601);
         Assert.AreEqual(093010T, FoundTime, Iso8601);
         Assert.AreEqual(060000T, FoundZone, Iso8601);

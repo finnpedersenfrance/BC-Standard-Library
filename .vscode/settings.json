@@ -1,4 +1,5 @@
 {
+    "linterCop.autoDownload": true,
     "al.enableCodeAnalysis": true,
     "al.codeAnalyzers": [
         "${CodeCop}",
@@ -10,8 +11,6 @@
     "al.backgroundCodeAnalysis": "Project",
     "al.browser": "Edge",
     "al.ruleSetPath": "./.vscode/Main.ruleset.json",
-    "xml.validation.namespaces.enabled": "onNamespaceEncountered",
-    "xml.validation.schema.enabled": "onValidSchema",
     "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
     "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
@@ -75,5 +74,6 @@
         "removeActions": true,
         "ignoreComments": false
     },
-    "linterCop.autoDownload": true
+    "xml.validation.namespaces.enabled": "onNamespaceEncountered",
+    "xml.validation.schema.enabled": "onValidSchema",
 }

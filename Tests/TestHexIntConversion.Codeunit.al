@@ -6,7 +6,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -26,7 +26,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         Int := 15;
         Hex := 'F';
-        Assert.AreEqual(Hex, FPFrStandardLibrary.Int2Hex(Int), '');
+        Assert.AreEqual(Hex, StandardLibrary.Int2Hex(Int), '');
     end;
 
     [Test]
@@ -42,7 +42,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         Int := 255;
         Hex := 'FF';
-        Assert.AreEqual(Hex, FPFrStandardLibrary.Int2Hex(Int), '');
+        Assert.AreEqual(Hex, StandardLibrary.Int2Hex(Int), '');
     end;
 
     [Test]
@@ -58,7 +58,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         Int := 15;
         Hex := 'F';
-        Assert.AreEqual(Int, FPFrStandardLibrary.Hex2Int(Hex), '');
+        Assert.AreEqual(Int, StandardLibrary.Hex2Int(Hex), '');
     end;
 
     [Test]
@@ -74,7 +74,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         Int := 255;
         Hex := 'FF';
-        Assert.AreEqual(Int, FPFrStandardLibrary.Hex2Int(Hex), '');
+        Assert.AreEqual(Int, StandardLibrary.Hex2Int(Hex), '');
     end;
 
     [Test]
@@ -91,7 +91,7 @@ codeunit 50133 "Test Hex Int Conversion"
 
         for I := 1 to 10000 do begin
             Int := Random(999999999);
-            ExpectedInt := FPFrStandardLibrary.Hex2Int(FPFrStandardLibrary.Int2Hex(Int));
+            ExpectedInt := StandardLibrary.Hex2Int(StandardLibrary.Int2Hex(Int));
             Assert.AreEqual(ExpectedInt, Int, 'Converting any integer to hex and back should result in the original value.');
         end;
     end;
@@ -111,8 +111,8 @@ codeunit 50133 "Test Hex Int Conversion"
 
         for I := 1 to 10000 do begin
             Int := Random(999999999);
-            Hex := FPFrStandardLibrary.Int2Hex(Int);
-            ExpectedHex := FPFrStandardLibrary.Int2Hex(FPFrStandardLibrary.Hex2Int(Hex));
+            Hex := StandardLibrary.Int2Hex(Int);
+            ExpectedHex := StandardLibrary.Int2Hex(StandardLibrary.Hex2Int(Hex));
             Assert.AreEqual(ExpectedHex, Hex, 'Converting any hex value to integer and back should result in the original value.');
         end;
     end;
@@ -136,7 +136,7 @@ codeunit 50133 "Test Hex Int Conversion"
             for J := 1 to I do
                 Int := Int * 16;
             Int := Int - 1;
-            Hex := FPFrStandardLibrary.Int2Hex(Int);
+            Hex := StandardLibrary.Int2Hex(Int);
             ExpectedHex := PadStr('', I, 'F');
             Assert.AreEqual(ExpectedHex, Hex, 'Converting 16^5-1 to hexadecimal should result in FFFFF. That is 5 times.');
         end;
@@ -155,7 +155,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] We get a string with '7' followed by 15 times F.
 
         Int := 9223372036854775807L;
-        Hex := FPFrStandardLibrary.Int2Hex(Int);
+        Hex := StandardLibrary.Int2Hex(Int);
         ExpectedHex := PadStr('7', 16, 'F');
         Assert.AreEqual(ExpectedHex, Hex, '');
     end;
@@ -172,7 +172,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] it fails.
 
         Int := -1;
-        Assert.IsFalse(FPFrStandardLibrary.TryInt2Hex(Int, Hex), 'Converting negative numbers will fail.');
+        Assert.IsFalse(StandardLibrary.TryInt2Hex(Int, Hex), 'Converting negative numbers will fail.');
     end;
 
     [Test]
@@ -187,7 +187,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] it fails.
 
         Hex := 'ABCDEFG';
-        Assert.IsFalse(FPFrStandardLibrary.TryHex2Int(Hex, Int), 'Converting nonsens should fail.');
+        Assert.IsFalse(StandardLibrary.TryHex2Int(Hex, Int), 'Converting nonsens should fail.');
     end;
 
     [Test]
@@ -202,7 +202,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] it fails.
 
         Hex := 'ABZDE';
-        Assert.IsFalse(FPFrStandardLibrary.TryHex2Int(Hex, Int), 'Converting nonsens should fail.');
+        Assert.IsFalse(StandardLibrary.TryHex2Int(Hex, Int), 'Converting nonsens should fail.');
     end;
 
     [Test]
@@ -217,7 +217,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] returns our default value.
 
         DefaultHexValue := '7E7';
-        Hex := FPFrStandardLibrary.Int2HexWithDefault(-1, DefaultHexValue);
+        Hex := StandardLibrary.Int2HexWithDefault(-1, DefaultHexValue);
         Assert.AreEqual(DefaultHexValue, Hex, '');
     end;
 
@@ -233,7 +233,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] returns 0. Int2HexWithDefault is guaranteed to return a valid hex value.
 
         DefaultHexValue := 'Nonsens';
-        Hex := FPFrStandardLibrary.Int2HexWithDefault(-1, DefaultHexValue);
+        Hex := StandardLibrary.Int2HexWithDefault(-1, DefaultHexValue);
         Assert.AreEqual('0', Hex, '');
     end;
 
@@ -250,7 +250,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // T3-P8629-A1033-L999:Payment Terms
         // So now we know that "Payment Terms" is the CaptionML (ENU) of Table 3.
 
-        Int := FPFrStandardLibrary.Hex2Int(FPFrStandardLibrary.Int2Hex(33) + FPFrStandardLibrary.Int2Hex(181));
+        Int := StandardLibrary.Hex2Int(StandardLibrary.Int2Hex(33) + StandardLibrary.Int2Hex(181));
         Assert.AreEqual(8629, Int, 'Expected 00033-00181 to become 8629.');
     end;
 
@@ -266,7 +266,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] returns our default value.
 
         DefaultIntValue := 2023;
-        Int := FPFrStandardLibrary.Hex2IntWithDefault('Not a hex value', DefaultIntValue);
+        Int := StandardLibrary.Hex2IntWithDefault('Not a hex value', DefaultIntValue);
         Assert.AreEqual(DefaultIntValue, Int, '');
     end;
 
@@ -282,7 +282,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] returns zero because our default value was
 
         DefaultIntValue := -1;
-        Int := FPFrStandardLibrary.Hex2IntWithDefault('Not a hex value', DefaultIntValue);
+        Int := StandardLibrary.Hex2IntWithDefault('Not a hex value', DefaultIntValue);
         Assert.AreEqual(0, Int, '');
     end;
 
@@ -298,7 +298,7 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] it fails.
 
         Hex := '';
-        Assert.IsFalse(FPFrStandardLibrary.TryHex2Int(Hex, Int), 'Converting empty string should fail.');
+        Assert.IsFalse(StandardLibrary.TryHex2Int(Hex, Int), 'Converting empty string should fail.');
     end;
 
     [Test]
@@ -313,6 +313,6 @@ codeunit 50133 "Test Hex Int Conversion"
         // [THEN] it fails.
 
         Hex := PadStr('', 17, 'F');
-        Assert.IsFalse(FPFrStandardLibrary.TryHex2Int(Hex, Int), 'Converting a 17 character hex string should fail.');
+        Assert.IsFalse(StandardLibrary.TryHex2Int(Hex, Int), 'Converting a 17 character hex string should fail.');
     end;
 }

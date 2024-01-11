@@ -1,5 +1,5 @@
 {
-    "name": "Personal Project ruleset",
+    "name": "Ruleset Library",
     "description": "A list of project specific rules",
     "includedRuleSets": [
         {

@@ -6,7 +6,7 @@ codeunit 50134 "Test XML Format"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -21,7 +21,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('1.234', FPFrStandardLibrary.XMLFormat(1.234), '');
+        Assert.AreEqual('1.234', StandardLibrary.XMLFormat(1.234), '');
     end;
 
     [test]
@@ -32,7 +32,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('2023-01-20', FPFrStandardLibrary.XMLFormat(DMY2Date(20, 1, 2023)), '');
+        Assert.AreEqual('2023-01-20', StandardLibrary.XMLFormat(DMY2Date(20, 1, 2023)), '');
     end;
 
     [test]
@@ -43,7 +43,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('12:34:56', FPFrStandardLibrary.XMLFormat(123456T), '');
+        Assert.AreEqual('12:34:56', StandardLibrary.XMLFormat(123456T), '');
     end;
 
     [test]
@@ -54,7 +54,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('2023-01-20T12:34:56', FPFrStandardLibrary.XMLFormat(CreateDateTime(DMY2Date(20, 1, 2023), 123456T)), '');
+        Assert.AreEqual('2023-01-20T12:34:56', StandardLibrary.XMLFormat(CreateDateTime(DMY2Date(20, 1, 2023), 123456T)), '');
     end;
 
     [test]
@@ -65,7 +65,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('7', FPFrStandardLibrary.XMLFormat(7), '');
+        Assert.AreEqual('7', StandardLibrary.XMLFormat(7), '');
     end;
 
     [Test]
@@ -76,7 +76,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('9223372036854775807', FPFrStandardLibrary.XMLFormat(9223372036854775807L), '');
+        Assert.AreEqual('9223372036854775807', StandardLibrary.XMLFormat(9223372036854775807L), '');
     end;
 
     [Test]
@@ -87,7 +87,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('true', FPFrStandardLibrary.XMLFormat(true), '');
+        Assert.AreEqual('true', StandardLibrary.XMLFormat(true), '');
     end;
 
     [Test]
@@ -98,7 +98,7 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('false', FPFrStandardLibrary.XMLFormat(false), '');
+        Assert.AreEqual('false', StandardLibrary.XMLFormat(false), '');
     end;
 
     [Test]
@@ -114,7 +114,7 @@ codeunit 50134 "Test XML Format"
 
         CodeGUID := System.CreateGuid();
         TextGUID := CodeGUID;
-        Assert.AreEqual(TextGUID, FPFrStandardLibrary.XMLFormat(CodeGUID), '');
+        Assert.AreEqual(TextGUID, StandardLibrary.XMLFormat(CodeGUID), '');
     end;
 
     [Test]
@@ -127,6 +127,6 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('2', FPFrStandardLibrary.XMLFormat(CustomerBlocked::Invoice), '');
+        Assert.AreEqual('2', StandardLibrary.XMLFormat(CustomerBlocked::Invoice), '');
     end;
 }

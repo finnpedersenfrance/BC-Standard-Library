@@ -6,7 +6,7 @@ codeunit 50138 "Test Regex Functions"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -21,7 +21,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is true
 
-        Assert.IsTrue(FPFrStandardLibrary.IsEmptyString(''), '');
+        Assert.IsTrue(StandardLibrary.IsEmptyString(''), '');
     end;
 
     [Test]
@@ -32,7 +32,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is false
 
-        Assert.IsFalse(FPFrStandardLibrary.IsEmptyString('xxx'), '');
+        Assert.IsFalse(StandardLibrary.IsEmptyString('xxx'), '');
     end;
 
     [Test]
@@ -43,7 +43,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is false
 
-        Assert.IsFalse(FPFrStandardLibrary.IsCharacterString(''), '');
+        Assert.IsFalse(StandardLibrary.IsCharacterString(''), '');
     end;
 
     [Test]
@@ -54,7 +54,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is true
 
-        Assert.IsTrue(FPFrStandardLibrary.IsCharacterString('X'), '');
+        Assert.IsTrue(StandardLibrary.IsCharacterString('X'), '');
     end;
 
     [Test]
@@ -65,7 +65,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is false
 
-        Assert.IsFalse(FPFrStandardLibrary.IsCharacterString('xxx'), '');
+        Assert.IsFalse(StandardLibrary.IsCharacterString('xxx'), '');
     end;
 
     [Test]
@@ -76,7 +76,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it is true
 
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsCharacterString('\d'), '');
+        Assert.IsTrue(StandardLibrary.RegexIsCharacterString('\d'), '');
     end;
 
     [Test]
@@ -87,7 +87,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns an empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexCharacterClass(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexCharacterClass(''), '');
     end;
 
     [Test]
@@ -98,7 +98,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the string included in square brackets
 
-        Assert.AreEqual('[xxx]', FPFrStandardLibrary.RegexCharacterClass('xxx'), '');
+        Assert.AreEqual('[xxx]', StandardLibrary.RegexCharacterClass('xxx'), '');
     end;
 
     [Test]
@@ -109,7 +109,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the string included in brackets
 
-        Assert.AreEqual('(xxx)', FPFrStandardLibrary.RegexGroup('xxx'), '');
+        Assert.AreEqual('(xxx)', StandardLibrary.RegexGroup('xxx'), '');
     end;
 
     [Test]
@@ -120,7 +120,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexGroup(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexGroup(''), '');
     end;
 
     [Test]
@@ -131,7 +131,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating a disjunction between the two
         // [THEN] it returns a string with a pipe between the two
 
-        Assert.AreEqual('x|y', FPFrStandardLibrary.RegexDisjunction2('x', 'y'), '');
+        Assert.AreEqual('x|y', StandardLibrary.RegexDisjunction2('x', 'y'), '');
     end;
 
     [Test]
@@ -142,9 +142,9 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating a disjunction between the two
         // [THEN] it returns the non empty string or in case they both are empty an empty string
 
-        Assert.AreEqual('x', FPFrStandardLibrary.RegexDisjunction2('x', ''), '');
-        Assert.AreEqual('y', FPFrStandardLibrary.RegexDisjunction2('', 'y'), '');
-        Assert.AreEqual('', FPFrStandardLibrary.RegexDisjunction2('', ''), '');
+        Assert.AreEqual('x', StandardLibrary.RegexDisjunction2('x', ''), '');
+        Assert.AreEqual('y', StandardLibrary.RegexDisjunction2('', 'y'), '');
+        Assert.AreEqual('', StandardLibrary.RegexDisjunction2('', ''), '');
     end;
 
     [Test]
@@ -155,7 +155,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating a disjunction between the three
         // [THEN] it returns a string with a pipe between the three
 
-        Assert.AreEqual('x|y|z', FPFrStandardLibrary.RegexDisjunction3('x', 'y', 'z'), '');
+        Assert.AreEqual('x|y|z', StandardLibrary.RegexDisjunction3('x', 'y', 'z'), '');
     end;
 
     [Test]
@@ -166,13 +166,13 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating a disjunction between the three
         // [THEN] it ignores the empty strings
 
-        Assert.AreEqual('x|y', FPFrStandardLibrary.RegexDisjunction3('x', 'y', ''), '');
-        Assert.AreEqual('x|z', FPFrStandardLibrary.RegexDisjunction3('x', '', 'z'), '');
-        Assert.AreEqual('y|z', FPFrStandardLibrary.RegexDisjunction3('', 'y', 'z'), '');
-        Assert.AreEqual('x', FPFrStandardLibrary.RegexDisjunction3('x', '', ''), '');
-        Assert.AreEqual('y', FPFrStandardLibrary.RegexDisjunction3('', 'y', ''), '');
-        Assert.AreEqual('z', FPFrStandardLibrary.RegexDisjunction3('', '', 'z'), '');
-        Assert.AreEqual('', FPFrStandardLibrary.RegexDisjunction3('', '', ''), '');
+        Assert.AreEqual('x|y', StandardLibrary.RegexDisjunction3('x', 'y', ''), '');
+        Assert.AreEqual('x|z', StandardLibrary.RegexDisjunction3('x', '', 'z'), '');
+        Assert.AreEqual('y|z', StandardLibrary.RegexDisjunction3('', 'y', 'z'), '');
+        Assert.AreEqual('x', StandardLibrary.RegexDisjunction3('x', '', ''), '');
+        Assert.AreEqual('y', StandardLibrary.RegexDisjunction3('', 'y', ''), '');
+        Assert.AreEqual('z', StandardLibrary.RegexDisjunction3('', '', 'z'), '');
+        Assert.AreEqual('', StandardLibrary.RegexDisjunction3('', '', ''), '');
     end;
 
     [Test]
@@ -183,7 +183,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns an empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexOptional(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexOptional(''), '');
     end;
 
     [Test]
@@ -194,7 +194,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the character followed by a question mark
 
-        Assert.AreEqual('x?', FPFrStandardLibrary.RegexOptional('x'), '');
+        Assert.AreEqual('x?', StandardLibrary.RegexOptional('x'), '');
     end;
 
     [Test]
@@ -205,7 +205,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the string in parentheses followed by a question mark
 
-        Assert.AreEqual('(xyz)?', FPFrStandardLibrary.RegexOptional('xyz'), '');
+        Assert.AreEqual('(xyz)?', StandardLibrary.RegexOptional('xyz'), '');
     end;
 
     [Test]
@@ -216,7 +216,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns an empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexZeroOrMore(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexZeroOrMore(''), '');
     end;
 
     [Test]
@@ -227,7 +227,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the character followed by an asterisk
 
-        Assert.AreEqual('x*', FPFrStandardLibrary.RegexZeroOrMore('x'), '');
+        Assert.AreEqual('x*', StandardLibrary.RegexZeroOrMore('x'), '');
     end;
 
     [Test]
@@ -238,7 +238,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the string in parentheses followed by an asterisk
 
-        Assert.AreEqual('(xyz)*', FPFrStandardLibrary.RegexZeroOrMore('xyz'), '');
+        Assert.AreEqual('(xyz)*', StandardLibrary.RegexZeroOrMore('xyz'), '');
     end;
 
     [Test]
@@ -249,7 +249,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns an empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexOneOrMore(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexOneOrMore(''), '');
     end;
 
     [Test]
@@ -259,7 +259,7 @@ codeunit 50138 "Test Regex Functions"
         // [GIVEN] Given a character
         // [WHEN] creating the pattern
         // [THEN] it returns the character followed by a plus
-        Assert.AreEqual('x+', FPFrStandardLibrary.RegexOneOrMore('x'), '');
+        Assert.AreEqual('x+', StandardLibrary.RegexOneOrMore('x'), '');
     end;
 
     [Test]
@@ -270,7 +270,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the string in parentheses followed by a plus
 
-        Assert.AreEqual('(xyz)+', FPFrStandardLibrary.RegexOneOrMore('xyz'), '');
+        Assert.AreEqual('(xyz)+', StandardLibrary.RegexOneOrMore('xyz'), '');
     end;
 
     [Test]
@@ -281,7 +281,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] testing
         // [THEN] it returns an empty string
 
-        Assert.AreEqual('', FPFrStandardLibrary.RegexNegation(''), '');
+        Assert.AreEqual('', StandardLibrary.RegexNegation(''), '');
     end;
 
     [Test]
@@ -292,7 +292,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the caret followed by the string, all included in square brackets
 
-        Assert.AreEqual('[^xxx]', FPFrStandardLibrary.RegexNegation('xxx'), '');
+        Assert.AreEqual('[^xxx]', StandardLibrary.RegexNegation('xxx'), '');
     end;
 
     [Test]
@@ -303,7 +303,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the caret
 
-        Assert.AreEqual('^', FPFrStandardLibrary.RegexStartLine(''), '');
+        Assert.AreEqual('^', StandardLibrary.RegexStartLine(''), '');
     end;
 
     [Test]
@@ -314,7 +314,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the caret followed by the string
 
-        Assert.AreEqual('^xxx', FPFrStandardLibrary.RegexStartLine('xxx'), '');
+        Assert.AreEqual('^xxx', StandardLibrary.RegexStartLine('xxx'), '');
     end;
 
     [Test]
@@ -325,7 +325,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the same string
 
-        Assert.AreEqual('^xxx', FPFrStandardLibrary.RegexStartLine('^xxx'), '');
+        Assert.AreEqual('^xxx', StandardLibrary.RegexStartLine('^xxx'), '');
     end;
 
     [Test]
@@ -336,7 +336,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the dollar sign
 
-        Assert.AreEqual('$', FPFrStandardLibrary.RegexEndLine(''), '');
+        Assert.AreEqual('$', StandardLibrary.RegexEndLine(''), '');
     end;
 
     [Test]
@@ -347,7 +347,7 @@ codeunit 50138 "Test Regex Functions"
         // [WHEN] creating the pattern
         // [THEN] it returns the dollar sign followed by the string
 
-        Assert.AreEqual('xxx$', FPFrStandardLibrary.RegexEndLine('xxx'), '');
+        Assert.AreEqual('xxx$', StandardLibrary.RegexEndLine('xxx'), '');
     end;
 
     [Test]
@@ -365,33 +365,33 @@ codeunit 50138 "Test Regex Functions"
         // https://www.w3schools.com/xml/schema_dtypes_date.asp
 
         Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24', Pattern), 'Simple Date');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24Z', Pattern), 'Date with UTC TimeZone');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24-06:00', Pattern), 'Date with negative TimeZone');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-09-24+06:00', Pattern), 'Date with positive TimeZone');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:00:00', Pattern), 'Simple DateTime');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10.5', Pattern), 'DateTime with second fractions 1');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10.56', Pattern), 'DateTime with second fractions 2');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10.567', Pattern), 'DateTime with second fractions 3');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10Z', Pattern), 'DateTime with UTC TimeZone');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10-06:00', Pattern), 'DateTime with negative TimeZone');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('2002-05-30T09:30:10+06:00', Pattern), 'DateTime with positive TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-09-24', Pattern), 'Simple Date');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-09-24Z', Pattern), 'Date with UTC TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-09-24-06:00', Pattern), 'Date with negative TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-09-24+06:00', Pattern), 'Date with positive TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:00:00', Pattern), 'Simple DateTime');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10.5', Pattern), 'DateTime with second fractions 1');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10.56', Pattern), 'DateTime with second fractions 2');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10.567', Pattern), 'DateTime with second fractions 3');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10Z', Pattern), 'DateTime with UTC TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10-06:00', Pattern), 'DateTime with negative TimeZone');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('2002-05-30T09:30:10+06:00', Pattern), 'DateTime with positive TimeZone');
 
         Pattern := '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('https://www.google.com', Pattern), 'Url checker');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('http://www.google.com', Pattern), 'Url checker');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('www.google.com', Pattern), 'Url checker');
-        Assert.IsFalse(FPFrStandardLibrary.RegexIsMatch('htt://www.google.com', Pattern), 'Url checker');
-        Assert.IsFalse(FPFrStandardLibrary.RegexIsMatch('://www.google.com', Pattern), 'Url checker');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('https://www.google.com', Pattern), 'Url checker');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('http://www.google.com', Pattern), 'Url checker');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('www.google.com', Pattern), 'Url checker');
+        Assert.IsFalse(StandardLibrary.RegexIsMatch('htt://www.google.com', Pattern), 'Url checker');
+        Assert.IsFalse(StandardLibrary.RegexIsMatch('://www.google.com', Pattern), 'Url checker');
 
         Pattern := '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
         Pattern := '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'; // Calculated by ChatGPT
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('finnpedersenfrance@gmail.com', Pattern), 'Email checker');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('finnpedersenfrance@gmail.com', Pattern), 'Email checker');
 
         Pattern := '^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$';
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('(555)-555-5555', Pattern), 'US Phone number');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('555-555-5555', Pattern), 'US Phone number');
-        Assert.IsTrue(FPFrStandardLibrary.RegexIsMatch('+1-555-532-3455', Pattern), 'US Phone number');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('(555)-555-5555', Pattern), 'US Phone number');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('555-555-5555', Pattern), 'US Phone number');
+        Assert.IsTrue(StandardLibrary.RegexIsMatch('+1-555-532-3455', Pattern), 'US Phone number');
     end;
 
     [Test]
@@ -409,7 +409,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '2002-05-30T09:30:10+06:00';
         Pattern := 'T\d{2}:\d{2}:\d{2}';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(11, Position, '');
         Assert.AreEqual('T09:30:10', MatchedString, '');
     end;
@@ -429,7 +429,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '2002-05-30T09:30:10+06:00';
         Pattern := '(-|\+)\d{2}:\d{2}';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(20, Position, '');
         Assert.AreEqual('+06:00', MatchedString, '');
     end;
@@ -449,7 +449,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '2002-05-30T09:30:10-06:00';
         Pattern := '(-|\+)\d{2}:\d{2}';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(20, Position, '');
         Assert.AreEqual('-06:00', MatchedString, '');
     end;
@@ -469,7 +469,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '2002-05-30T09:30:10+06:00';
         Pattern := '\d{4}-\d{2}-\d{2}';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(1, Position, '');
         Assert.AreEqual('2002-05-30', MatchedString, '');
     end;
@@ -489,7 +489,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '';
         Pattern := '\d{4}-\d{2}-\d{2}';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(0, Position, '');
         Assert.AreEqual('', MatchedString, '');
     end;
@@ -509,7 +509,7 @@ codeunit 50138 "Test Regex Functions"
 
         String := '2002-05-30T09:30:10+06:00';
         Pattern := '';
-        FPFrStandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
+        StandardLibrary.PatternPosition(String, Pattern, Position, MatchedString);
         Assert.AreEqual(0, Position, '');
         Assert.AreEqual('', MatchedString, '');
     end;
@@ -517,54 +517,54 @@ codeunit 50138 "Test Regex Functions"
     [Test]
     procedure TestRegexXOrMore()
     begin
-        Assert.AreEqual('xxx{3,}', FPFrStandardLibrary.RegexXOrMore('xxx', 3), '');
+        Assert.AreEqual('xxx{3,}', StandardLibrary.RegexXOrMore('xxx', 3), '');
     end;
 
     [Test]
     procedure TestRegexExactly()
     begin
-        Assert.AreEqual('xxx{3}', FPFrStandardLibrary.RegexExactly('xxx', 3), '');
+        Assert.AreEqual('xxx{3}', StandardLibrary.RegexExactly('xxx', 3), '');
     end;
 
     [Test]
     procedure TestRegexInterval()
     begin
-        Assert.AreEqual('xxx{3,5}', FPFrStandardLibrary.RegexInterval('xxx', 3, 5), '');
+        Assert.AreEqual('xxx{3,5}', StandardLibrary.RegexInterval('xxx', 3, 5), '');
     end;
 
     [Test]
     procedure TestRegexPassiveGroup()
     begin
-        Assert.AreEqual('(?:xxx)', FPFrStandardLibrary.RegexPassiveGroup('xxx'), '');
+        Assert.AreEqual('(?:xxx)', StandardLibrary.RegexPassiveGroup('xxx'), '');
     end;
 
     [Test]
     procedure TestRegexDigit()
     begin
-        Assert.AreEqual('\d', FPFrStandardLibrary.RegexDigit(), '');
+        Assert.AreEqual('\d', StandardLibrary.RegexDigit(), '');
     end;
 
     [Test]
     procedure TestRegexPlus()
     begin
-        Assert.AreEqual('\+', FPFrStandardLibrary.RegexPlus(), '');
+        Assert.AreEqual('\+', StandardLibrary.RegexPlus(), '');
     end;
 
     [Test]
     procedure TestRegexDecimalPoint()
     begin
-        Assert.AreEqual('\.', FPFrStandardLibrary.RegexDecimalPoint(), '');
+        Assert.AreEqual('\.', StandardLibrary.RegexDecimalPoint(), '');
     end;
 
     [Test]
     procedure TestRegexAnyChar()
     begin
-        Assert.AreEqual('.', FPFrStandardLibrary.RegexAnyChar(), '');
+        Assert.AreEqual('.', StandardLibrary.RegexAnyChar(), '');
     end;
 
     procedure DigitGroup(Number: Integer) Pattern: Text
     begin
-        Pattern := FPFrStandardLibrary.RegexGroup(FPFrStandardLibrary.RegexExactly(FPFrStandardLibrary.RegexDigit(), Number));
+        Pattern := StandardLibrary.RegexGroup(StandardLibrary.RegexExactly(StandardLibrary.RegexDigit(), Number));
     end;
 
     [Test]
@@ -587,25 +587,25 @@ codeunit 50138 "Test Regex Functions"
         DatePattern := DigitGroup(4) + '-' + DigitGroup(2) + '-' + DigitGroup(2); // (\d{4})-(\d{2})-(\d{2})
         TimePattern := 'T' + DigitGroup(2) + ':' + DigitGroup(2) + ':'; // T(\d{2}):(\d{2}):
 
-        FractionPattern := FPFrStandardLibrary.RegexDecimalPoint() + FPFrStandardLibrary.RegexZeroOrMore(FPFrStandardLibrary.RegexDigit()); // \.\d*
-        FractionPattern := FPFrStandardLibrary.RegexPassiveGroup(FractionPattern); // (?:\.\d*)
-        FractionPattern := FPFrStandardLibrary.RegexOptional(FractionPattern); // (?:\.\d*)?
-        FractionPattern := FPFrStandardLibrary.RegexExactly(FPFrStandardLibrary.RegexDigit(), 2) + FractionPattern; // \d{2}(?:\.\d*)?
-        FractionPattern := FPFrStandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
+        FractionPattern := StandardLibrary.RegexDecimalPoint() + StandardLibrary.RegexZeroOrMore(StandardLibrary.RegexDigit()); // \.\d*
+        FractionPattern := StandardLibrary.RegexPassiveGroup(FractionPattern); // (?:\.\d*)
+        FractionPattern := StandardLibrary.RegexOptional(FractionPattern); // (?:\.\d*)?
+        FractionPattern := StandardLibrary.RegexExactly(StandardLibrary.RegexDigit(), 2) + FractionPattern; // \d{2}(?:\.\d*)?
+        FractionPattern := StandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
 
-        ZonePattern := FPFrStandardLibrary.RegexGroup(
-                            FPFrStandardLibrary.RegexOptional(
-                                FPFrStandardLibrary.RegexDisjunction3(
+        ZonePattern := StandardLibrary.RegexGroup(
+                            StandardLibrary.RegexOptional(
+                                StandardLibrary.RegexDisjunction3(
                                     '-' + DigitGroup(2) + ':' + DigitGroup(2),
-                                    FPFrStandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
+                                    StandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
                                     'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
 
         TimePattern := TimePattern + FractionPattern;
-        TimePattern := FPFrStandardLibrary.RegexOptional(TimePattern);
+        TimePattern := StandardLibrary.RegexOptional(TimePattern);
 
         Pattern := DatePattern + TimePattern + ZonePattern;
-        Pattern := FPFrStandardLibrary.RegexEndLine(Pattern);
-        Pattern := FPFrStandardLibrary.RegexStartLine(Pattern);
+        Pattern := StandardLibrary.RegexEndLine(Pattern);
+        Pattern := StandardLibrary.RegexStartLine(Pattern);
 
         Assert.AreEqual(ExpectedPattern, Pattern, '');
     end;
@@ -620,31 +620,31 @@ codeunit 50138 "Test Regex Functions"
         Pattern := '^(\d{4})-(\d{2})-(\d{2})(T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?))?((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)$';
 
         // Test a valid XML datetime string in UTC time zone
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00Z', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00Z', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in UTC time zone was marked as invalid.');
 
         // Test a valid XML datetime string in a positive time offset
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00+05:00', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00+05:00', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in a positive time offset was marked as invalid.');
 
         // Test a valid XML datetime string in a negative time offset
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00-08:00', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00-08:00', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string in a negative time offset was marked as invalid.');
 
         // Test a valid XML datetime string with fractional seconds
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123Z', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123Z', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with fractional seconds was marked as invalid.');
 
         // Test a valid XML datetime string with positive fractional seconds and a positive time offset
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123+05:00', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00.123+05:00', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with positive fractional seconds and a positive time offset was marked as invalid.');
 
         // Test a valid XML datetime string with negative fractional seconds and a negative time offset
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('2022-02-19T14:30:00.987-08:00', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('2022-02-19T14:30:00.987-08:00', Pattern);
         Assert.IsTrue(isValidDateTime, 'Valid XML datetime string with negative fractional seconds and a negative time offset was marked as invalid.');
 
         // Test an empty string
-        isValidDateTime := FPFrStandardLibrary.RegexIsMatch('', Pattern);
+        isValidDateTime := StandardLibrary.RegexIsMatch('', Pattern);
         Assert.IsFalse(isValidDateTime, 'Empty string was marked as valid XML datetime string.');
     end;
 }

@@ -6,7 +6,7 @@ codeunit 50135 "Test String Functions"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     [Test]
     procedure TestRemoveChar()
@@ -16,7 +16,7 @@ codeunit 50135 "Test String Functions"
         // [WHEN] removing a set of characters
         // [THEN] The resulting string is without these characters.
 
-        Assert.AreEqual('Sring', FPFrStandardLibrary.RemoveChar('StartingDate', 'Date'), '');
+        Assert.AreEqual('Sring', StandardLibrary.RemoveChar('StartingDate', 'Date'), '');
     end;
 
     [Test]
@@ -27,6 +27,6 @@ codeunit 50135 "Test String Functions"
         // [WHEN] keeping a set of characters
         // [THEN] The resulting string is only with these characters.
 
-        Assert.AreEqual('tatDate', FPFrStandardLibrary.KeepChar('StartingDate', 'Date'), '');
+        Assert.AreEqual('tatDate', StandardLibrary.KeepChar('StartingDate', 'Date'), '');
     end;
 }

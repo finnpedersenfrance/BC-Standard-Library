@@ -6,7 +6,7 @@ codeunit 50137 "Test Dmy Function"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -25,7 +25,7 @@ codeunit 50137 "Test Dmy Function"
         // [THEN] We should not get a date
 
         ExpectedDate := 0D;
-        Assert.IsFalse(FPFrStandardLibrary.TryDmy2Date(29, 2, 2019, FoundDate), 'Expected to evaluate fail making a date out of Febrary 29th, 2019.');
+        Assert.IsFalse(StandardLibrary.TryDmy2Date(29, 2, 2019, FoundDate), 'Expected to evaluate fail making a date out of Febrary 29th, 2019.');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
     end;
 
@@ -41,7 +41,7 @@ codeunit 50137 "Test Dmy Function"
         // [THEN] We should get a date
 
         ExpectedDate := DMY2Date(29, 2, 2020);
-        Assert.IsTrue(FPFrStandardLibrary.TryDmy2Date(29, 2, 2020, FoundDate), 'Expected to making a date out of Febrary 29th, 2020.');
+        Assert.IsTrue(StandardLibrary.TryDmy2Date(29, 2, 2020, FoundDate), 'Expected to making a date out of Febrary 29th, 2020.');
         Assert.AreEqual(ExpectedDate, FoundDate, 'Expected Febrary 29th, 2020 to be a date.');
     end;
 
@@ -53,7 +53,7 @@ codeunit 50137 "Test Dmy Function"
         // [WHEN] Evaluating it
         // [THEN] We should get a Yes
 
-        Assert.IsTrue(FPFrStandardLibrary.IsDmyValidDate(29, 2, 2020), 'Expected to making a date out of Febrary 29th, 2020.');
+        Assert.IsTrue(StandardLibrary.IsDmyValidDate(29, 2, 2020), 'Expected to making a date out of Febrary 29th, 2020.');
     end;
 
     [Test]
@@ -64,7 +64,7 @@ codeunit 50137 "Test Dmy Function"
         // [WHEN] Evaluating it
         // [THEN] We should get a No
 
-        Assert.IsFalse(FPFrStandardLibrary.IsDmyValidDate(29, 2, 2019), 'Febrary 29th, 2019 is not a valid date.');
+        Assert.IsFalse(StandardLibrary.IsDmyValidDate(29, 2, 2019), 'Febrary 29th, 2019 is not a valid date.');
     end;
 
     [Test]
@@ -80,7 +80,7 @@ codeunit 50137 "Test Dmy Function"
         // [THEN] We should get the default value
 
         DefaultDate := Today;
-        CalculatedDate := FPFrStandardLibrary.Dmy2DateWithDefault(29, 2, 2019, DefaultDate);
+        CalculatedDate := StandardLibrary.Dmy2DateWithDefault(29, 2, 2019, DefaultDate);
         Assert.AreEqual(DefaultDate, CalculatedDate, '');
     end;
 
@@ -96,7 +96,7 @@ codeunit 50137 "Test Dmy Function"
         // [THEN] We should fail
 
         ExpectedDateTime := 0DT;
-        Assert.IsFalse(FPFrStandardLibrary.TryCreateDateTime(0D, 010000T, CalculatedDateTime), 'Expected TryCreateDateTime to fail making a datetime from a 0D and a non zero time.');
+        Assert.IsFalse(StandardLibrary.TryCreateDateTime(0D, 010000T, CalculatedDateTime), 'Expected TryCreateDateTime to fail making a datetime from a 0D and a non zero time.');
         Assert.AreEqual(ExpectedDateTime, CalculatedDateTime, 'Expected to evaluate a zero datetime.');
     end;
 
@@ -112,7 +112,7 @@ codeunit 50137 "Test Dmy Function"
         // [THEN] We should fail
 
         ExpectedDateTime := CreateDateTime(DMY2Date(29, 2, 2020), 123456T);
-        Assert.IsTrue(FPFrStandardLibrary.TryCreateDateTime(DMY2Date(29, 2, 2020), 123456T, CalculatedDateTime), 'Expected TryCreateDateTime to succeed and return true.');
+        Assert.IsTrue(StandardLibrary.TryCreateDateTime(DMY2Date(29, 2, 2020), 123456T, CalculatedDateTime), 'Expected TryCreateDateTime to succeed and return true.');
         Assert.AreEqual(ExpectedDateTime, CalculatedDateTime, 'Expected to evaluate a correct datetime.');
     end;
 }

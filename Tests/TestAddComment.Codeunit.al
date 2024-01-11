@@ -6,7 +6,7 @@ codeunit 50131 "Test Add Comment"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -15,7 +15,7 @@ codeunit 50131 "Test Add Comment"
 
     procedure AddComment(var Comment: Text; NewComment: Text)
     begin
-        FPFrStandardLibrary.AddCommentSeparator(Comment, NewComment, ';');
+        StandardLibrary.AddCommentSeparator(Comment, NewComment, ';');
     end;
 
     [Test]

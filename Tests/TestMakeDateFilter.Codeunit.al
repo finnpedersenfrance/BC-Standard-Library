@@ -6,7 +6,7 @@ codeunit 50136 "Test Make Date Filter"
 
     var
         Assert: Codeunit Assert;
-        FPFrStandardLibrary: Codeunit "Standard Library";
+        StandardLibrary: Codeunit "Standard Library";
 
     trigger OnRun()
     begin
@@ -30,7 +30,7 @@ codeunit 50136 "Test Make Date Filter"
         EndingDate := CalcDate('<20D>', StartingDate);
         ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, EndingDate);
 
-        Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
+        Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
 
     [Test]
@@ -49,7 +49,7 @@ codeunit 50136 "Test Make Date Filter"
         EndingDate := 0D;
         ExpectedString := '';
 
-        Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
+        Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
 
     [Test]
@@ -69,7 +69,7 @@ codeunit 50136 "Test Make Date Filter"
         EndingDate := Today;
         ExpectedString := StrSubstNo(DateFilterTxt, '', EndingDate);
 
-        Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
+        Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
 
     [Test]
@@ -89,6 +89,6 @@ codeunit 50136 "Test Make Date Filter"
         EndingDate := 0D;
         ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, '');
 
-        Assert.AreEqual(ExpectedString, FPFrStandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
+        Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
 }
