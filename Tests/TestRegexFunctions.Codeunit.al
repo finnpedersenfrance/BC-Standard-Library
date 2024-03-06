@@ -594,11 +594,11 @@ codeunit 50138 "Test Regex Functions"
         FractionPattern := StandardLibrary.RegexGroup(FractionPattern); // (\d{2}(?:\.\d*)?)
 
         ZonePattern := StandardLibrary.RegexGroup(
-                            StandardLibrary.RegexOptional(
-                                StandardLibrary.RegexDisjunction3(
-                                    '-' + DigitGroup(2) + ':' + DigitGroup(2),
-                                    StandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
-                                    'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
+                                    StandardLibrary.RegexOptional(
+                                        StandardLibrary.RegexDisjunction3(
+                                            '-' + DigitGroup(2) + ':' + DigitGroup(2),
+                                            StandardLibrary.RegexPlus() + DigitGroup(2) + ':' + DigitGroup(2),
+                                            'Z'))); // ((-(\d{2}):(\d{2})|\+(\d{2}):(\d{2})|Z)?)
 
         TimePattern := TimePattern + FractionPattern;
         TimePattern := StandardLibrary.RegexOptional(TimePattern);

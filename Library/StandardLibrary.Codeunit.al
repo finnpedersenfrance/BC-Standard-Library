@@ -2,8 +2,6 @@ namespace FinnPedersenFrance.Tools.Library;
 
 codeunit 50130 "Standard Library"
 {
-
-
     procedure RemoveChar(String: Text; Which: Text): Text
     begin
         exit(DelChr(String, '=', Which))
