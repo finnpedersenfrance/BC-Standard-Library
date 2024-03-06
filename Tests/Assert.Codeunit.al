@@ -12,8 +12,6 @@ namespace FinnPedersenFrance.Tools.Library;
 
 codeunit 50139 Assert
 {
-
-
     var
         AreEqualFailedErr: Label 'Assert.AreEqual failed. Expected:<%1> (%2). Actual:<%3> (%4). %5.', Locked = true;
         AreNearlyEqualFailedErr: Label 'Assert.AreNearlyEqual failed. Expected a difference no greater than <%1> between expected value <%2> and actual value <%3>. %4', Locked = true;

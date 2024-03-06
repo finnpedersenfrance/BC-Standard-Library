@@ -13,7 +13,7 @@ codeunit 50134 "Test XML Format"
         // [FEATURE] Format and Evaluation of XML Inputvalues
     end;
 
-    [test]
+    [Test]
     procedure TestXMLFormatDecimal()
     begin
         // [SCENARIO #001] Formating decimal
@@ -24,7 +24,7 @@ codeunit 50134 "Test XML Format"
         Assert.AreEqual('1.234', StandardLibrary.XMLFormat(1.234), '');
     end;
 
-    [test]
+    [Test]
     procedure TestXMLFormatDate()
     begin
         // [SCENARIO #002] Formating date
@@ -35,7 +35,7 @@ codeunit 50134 "Test XML Format"
         Assert.AreEqual('2023-01-20', StandardLibrary.XMLFormat(DMY2Date(20, 1, 2023)), '');
     end;
 
-    [test]
+    [Test]
     procedure TestXMLFormatTime()
     begin
         // [SCENARIO #003] Formating time
@@ -46,7 +46,7 @@ codeunit 50134 "Test XML Format"
         Assert.AreEqual('12:34:56', StandardLibrary.XMLFormat(123456T), '');
     end;
 
-    [test]
+    [Test]
     procedure TestXMLFormatDateTime()
     begin
         // [SCENARIO #004] Formating datetime
@@ -57,7 +57,7 @@ codeunit 50134 "Test XML Format"
         Assert.AreEqual('2023-01-20T12:34:56', StandardLibrary.XMLFormat(CreateDateTime(DMY2Date(20, 1, 2023), 123456T)), '');
     end;
 
-    [test]
+    [Test]
     procedure TestXMLFormatInteger()
     begin
         // [SCENARIO #005] Formating integer
