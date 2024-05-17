@@ -5,8 +5,7 @@
         "${CodeCop}",
         "${UICop}",
         "${PerTenantExtensionCop}",
-        "${analyzerFolder}BusinessCentral.LinterCop.dll",
-        "${analyzerFolder}CompanialCopAnalyzer.dll",
+        "${analyzerFolder}BusinessCentral.LinterCop.dll"
     ],
     "al.backgroundCodeAnalysis": "Project",
     "al.browser": "Edge",
