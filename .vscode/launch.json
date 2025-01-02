@@ -10,12 +10,15 @@
             "type": "al",
             "environmentType": "Sandbox",
             "environmentName": "fpfrbcdev2",
+            "tenant": "40eb7a80-511c-44b6-b22f-57c4910cdede",
+            "startupCompany": "CRONUS Danmark A/S",
             "startupObjectId": 22,
             "startupObjectType": "Page",
             "breakOnError": "ExcludeTry",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }

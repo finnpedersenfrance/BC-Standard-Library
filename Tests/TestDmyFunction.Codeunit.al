@@ -79,7 +79,7 @@ codeunit 50137 "Test Dmy Function"
         // [WHEN] Evaluating it
         // [THEN] We should get the default value
 
-        DefaultDate := Today;
+        DefaultDate := Today();
         CalculatedDate := StandardLibrary.Dmy2DateWithDefault(29, 2, 2019, DefaultDate);
         Assert.AreEqual(DefaultDate, CalculatedDate, '');
     end;
