@@ -1,7 +1,7 @@
 permissionset 50131 "Library Permissions"
 {
     Assignable = true;
-    Caption = 'Library Permissions', MaxLength = 30, Locked = true;
+    Caption = 'Permissions', MaxLength = 30, Locked = true;
     Permissions = codeunit Assert = X,
         codeunit "Standard Library" = X,
         codeunit "Test Add Comment" = X,

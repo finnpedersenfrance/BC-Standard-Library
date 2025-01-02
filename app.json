@@ -2,7 +2,7 @@
   "id": "b8645f5d-7b63-48aa-97e0-9952e40de39b",
   "name": "BC Standard Library",
   "publisher": "Finn Pedersen France",
-  "version": "1.0.0.0",
+  "version": "1.0.0.2",
   "brief": "BC Standard Library",
   "description": "The BC Standard Library is a collection of the most used functions.",
   "privacyStatement": "https://www.finnpedersenfrance.com/",
@@ -13,8 +13,8 @@
   "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
-  "application": "23.0.0.0",
-  "runtime": "12.0",
+  "application": "25.0.0.0",
+  "runtime": "14.0",
   "applicationInsightsConnectionString": "XYZ",
   "features": [
     "TranslationFile",
@@ -34,4 +34,3 @@
   },
   "contextSensitiveHelpUrl": "https://www.finnpedersenfrance.com/"
 }
-

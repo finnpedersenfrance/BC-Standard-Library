@@ -26,7 +26,7 @@ codeunit 50136 "Test Make Date Filter"
         // [WHEN] Adding an empty string
         // [THEN] The resulting string is empty.
 
-        StartingDate := CalcDate('<-10D>', Today);
+        StartingDate := CalcDate('<-10D>', Today());
         EndingDate := CalcDate('<20D>', StartingDate);
         ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, EndingDate);
 
@@ -66,7 +66,7 @@ codeunit 50136 "Test Make Date Filter"
         // [THEN] The resulting string is empty.
 
         StartingDate := 0D;
-        EndingDate := Today;
+        EndingDate := Today();
         ExpectedString := StrSubstNo(DateFilterTxt, '', EndingDate);
 
         Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
@@ -85,7 +85,7 @@ codeunit 50136 "Test Make Date Filter"
         // [WHEN] Adding an empty string
         // [THEN] The resulting string is empty.
 
-        StartingDate := Today;
+        StartingDate := Today();
         EndingDate := 0D;
         ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, '');
 
