@@ -85,12 +85,29 @@ codeunit 50137 "Test Dmy Function"
     end;
 
     [Test]
+    procedure TestDmy2DateWithDefaultInvalidDate()
+    var
+        CalculatedDate: Date;
+        DefaultDate: Date;
+
+    begin
+        // [SCENARIO #006] Given an invalid date, will it return the default value.
+        // [GIVEN] An invalid date
+        // [WHEN] Evaluating it
+        // [THEN] We should get the default value
+
+        DefaultDate := Today();
+        CalculatedDate := StandardLibrary.Dmy2DateWithDefault(32, 13, 2023, DefaultDate);
+        Assert.AreEqual(DefaultDate, CalculatedDate, '');
+    end;
+
+    [Test]
     procedure TestTryCreateDateTimeNegative()
     var
         CalculatedDateTime: DateTime;
         ExpectedDateTime: DateTime;
     begin
-        // [SCENARIO #006] The try-function with catch the error
+        // [SCENARIO #007] The try-function with catch the error
         // [GIVEN] a 0D with a time
         // [WHEN] Evaluating it
         // [THEN] We should fail
@@ -106,7 +123,7 @@ codeunit 50137 "Test Dmy Function"
         CalculatedDateTime: DateTime;
         ExpectedDateTime: DateTime;
     begin
-        // [SCENARIO #006] The try-function with catch the error
+        // [SCENARIO #008] The try-function with catch the error
         // [GIVEN] a 0D with a time
         // [WHEN] Evaluating it
         // [THEN] We should fail

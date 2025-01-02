@@ -647,4 +647,18 @@ codeunit 50138 "Test Regex Functions"
         isValidDateTime := StandardLibrary.RegexIsMatch('', Pattern);
         Assert.IsFalse(isValidDateTime, 'Empty string was marked as valid XML datetime string.');
     end;
+
+    [Test]
+    procedure TestRegexIsMatchInvalidPattern()
+    var
+        Pattern: Text;
+    begin
+        // [SCENARIO #002] Testing pattern recognizion with invalid pattern
+        // [GIVEN] Given an invalid pattern
+        // [WHEN] testing if the pattern is recognized
+        // [THEN] it returns false
+
+        Pattern := '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
+        Assert.IsFalse(StandardLibrary.RegexIsMatch('invalid_pattern', Pattern), 'Invalid pattern should not be recognized.');
+    end;
 }

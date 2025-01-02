@@ -129,4 +129,15 @@ codeunit 50134 "Test XML Format"
 
         Assert.AreEqual('2', StandardLibrary.XMLFormat(CustomerBlocked::Invoice), '');
     end;
+
+    [Test]
+    procedure TestXMLFormatNullValue()
+    begin
+        // [SCENARIO #010] Formating null value
+        // [GIVEN] null value
+        // [WHEN] formating
+        // [THEN] correct XML string
+
+        Assert.AreEqual('', StandardLibrary.XMLFormat(''), '');
+    end;
 }

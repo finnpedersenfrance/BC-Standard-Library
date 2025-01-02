@@ -345,4 +345,22 @@ codeunit 50132 "Test Evaluate XML"
         Assert.AreEqual(060000T, FoundZone, Iso8601);
         Assert.IsFalse(FoundNegativeTimeZone, 'Positive Time Zone: ' + Iso8601);
     end;
+
+    [Test]
+    procedure TestEvaluateDateTimeFromXMLInvalid()
+    var
+        ExpectedDate: DateTime;
+        FoundDate: DateTime;
+        DateTimeText: Text;
+    begin
+        // [SCENARIO #018] Converting text with an invalid datetime
+        // [GIVEN] An invalid datetime in XML format.
+        // [WHEN] Evaluating it
+        // [THEN] We should not get a date
+
+        DateTimeText := '2019-02-30T12:34:56';
+        ExpectedDate := 0DT;
+        Assert.IsFalse(StandardLibrary.EvaluateDateTimeFromXML(FoundDate, DateTimeText), 'Expected to fail.');
+        Assert.AreEqual(ExpectedDate, FoundDate, 'Expected to evaluate a zero date.');
+    end;
 }

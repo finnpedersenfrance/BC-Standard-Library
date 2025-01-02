@@ -91,4 +91,22 @@ codeunit 50136 "Test Make Date Filter"
 
         Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, EndingDate), '');
     end;
+
+    [Test]
+    procedure TestDateFilterOnlyStartingDate()
+    var
+        StartingDate: Date;
+        DateFilterTxt: Label '%1..%2', Comment = '%1 = Start Date, %2 = End Date', Locked = true;
+        ExpectedString: Text;
+    begin
+        // [SCENARIO #005] Testing the scenario with only a starting date.
+        // [GIVEN] A starting date
+        // [WHEN] Adding only a starting date
+        // [THEN] The resulting string is the starting date followed by ".."
+
+        StartingDate := Today();
+        ExpectedString := StrSubstNo(DateFilterTxt, StartingDate, '');
+
+        Assert.AreEqual(ExpectedString, StandardLibrary.MakeDateFilter(StartingDate, 0D), '');
+    end;
 }
