@@ -138,6 +138,6 @@ codeunit 50134 "Test XML Format"
         // [WHEN] formating
         // [THEN] correct XML string
 
-        Assert.AreEqual('', StandardLibrary.XMLFormat(NULL), '');
+        Assert.AreEqual('', StandardLibrary.XMLFormat(''), '');
     end;
 }
