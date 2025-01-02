@@ -315,4 +315,20 @@ codeunit 50133 "Test Hex Int Conversion"
         Hex := PadStr('', 17, 'F');
         Assert.IsFalse(StandardLibrary.TryHex2Int(Hex, Int), 'Converting a 17 character hex string should fail.');
     end;
+
+    [Test]
+    procedure TestHex2IntWithDefaultInvalidHex()
+    var
+        DefaultIntValue: Integer;
+        Int: Integer;
+    begin
+        // [SCENARIO #018] Attempting to convert an invalid hex string, with a default value.
+        // [GIVEN] invalid hex value and an integer
+        // [WHEN] converting it to integer
+        // [THEN] returns our default value.
+
+        DefaultIntValue := 2023;
+        Int := StandardLibrary.Hex2IntWithDefault('InvalidHex', DefaultIntValue);
+        Assert.AreEqual(DefaultIntValue, Int, '');
+    end;
 }

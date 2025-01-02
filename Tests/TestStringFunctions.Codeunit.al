@@ -29,4 +29,15 @@ codeunit 50135 "Test String Functions"
 
         Assert.AreEqual('tatDate', StandardLibrary.KeepChar('StartingDate', 'Date'), '');
     end;
+
+    [Test]
+    procedure TestRemoveCharEmptyString()
+    begin
+        // [SCENARIO #002] Removing characters from an empty string.
+        // [GIVEN] An empty string
+        // [WHEN] removing a set of characters
+        // [THEN] The resulting string is still empty.
+
+        Assert.AreEqual('', StandardLibrary.RemoveChar('', 'Date'), '');
+    end;
 }

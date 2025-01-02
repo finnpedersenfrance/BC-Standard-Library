@@ -117,4 +117,21 @@ codeunit 50131 "Test Add Comment"
         AddComment(Comment, 'OK5');
         Assert.AreEqual(ExpectedComment, Comment, 'Adding a new unique comment should change the string.')
     end;
+
+    [Test]
+    procedure TestAddCommentWithDifferentSeparator()
+    var
+        Comment: Text;
+        ExpectedComment: Text;
+    begin
+        // [SCENARIO #007] Adding a new comment with a different separator
+        // [GIVEN] An original list of comments
+        // [WHEN] Adding a new comment with a different separator
+        // [THEN] The resulting string is the original string with the new comment added
+
+        Comment := 'OK1|OK2|OK3|OK4';
+        ExpectedComment := Comment + '|OK5';
+        StandardLibrary.AddCommentSeparator(Comment, 'OK5', '|');
+        Assert.AreEqual(ExpectedComment, Comment, 'Adding a new unique comment with a different separator should change the string.')
+    end;
 }
